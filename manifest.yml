@@ -1,9 +1,7 @@
 ---
 applications:
 - disk_quota: 1024M
-
-  name: SmartPropertyRegistry1
-
+  name: SmartPropertyRegistry
   command: "node app.js"
   path: "."
   instances: 1
