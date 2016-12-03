@@ -221,22 +221,18 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	if err != nil {
 		return nil, errors.New("Failed to get property")
 	}
-	ownerAsBytes, err := stub.GetState(name)
-	if err != nil {
-		return nil, errors.New("Failed to get owner name")
-	}
 	
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)
 	if res.Survey_no == survey_no{
-		fmt.Println("This property arleady exists: " + name)
+		fmt.Println("This property arleady exists: " + survey_no)
 		fmt.Println(res);
 		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
 	}
 	
 	//build the property json string manually
 	str := `{"name": "` + name + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `"}`
-	err = stub.PutState(name, []byte(str))									//store marble with id as key
+	err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err
 	}
