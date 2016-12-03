@@ -225,7 +225,7 @@ var options = 	{
 					},
 					chaincode:{
 						zip_url: 'https://github.com/deepalipatil/SmartPropertyRegistry/archive/v1.0.zip',
-						unzip_dir: 'SmartPropertyRegistry-v1.0/chaincode',													
+						unzip_dir: 'SmartPropertyRegistry-1.0/chaincode',													
 						//subdirectroy name of chaincode after unzipped
 						git_url: 'http://gopkg.in/deepalipatil/SmartPropertyRegistry.v1/chaincode',						//GO get http url
 					

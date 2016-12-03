@@ -90,12 +90,12 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	
 	var empty []string
 	jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
-	err = stub.PutState(marbleIndexStr, jsonAsBytes)
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)
 	if err != nil {
 		return nil, err
 	}
 	
-	var trades AllTrades
+
 	jsonAsBytes, _ = json.Marshal(trades)								//clear the open trade struct
 	err = stub.PutState(openTradesStr, jsonAsBytes)
 	if err != nil {
@@ -199,7 +199,7 @@ func (t *SimpleChaincode) Delete(stub shim.ChaincodeStubInterface, args []string
 	}
 
 	//get the marble index
-	marblesAsBytes, err := stub.GetState(marbleIndexStr)
+	marblesAsBytes, err := stub.GetState(propertyIndexStr)
 	if err != nil {
 		return nil, errors.New("Failed to get marble index")
 	}
