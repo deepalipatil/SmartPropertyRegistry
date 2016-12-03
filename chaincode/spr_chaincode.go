@@ -24,8 +24,6 @@ import (
 	"fmt"
 	"strconv"
 	"encoding/json"
-	"time"
-	"strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -110,10 +108,6 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	// Handle different functions
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", args)
-	} else if function == "delete" {										//deletes an entity from its state
-		res, err := t.Delete(stub, args)
-		cleanTrades(stub)													//lets make sure all open trades are still valid
-		return res, err
 	} else if function == "write" {											//writes a value to the chaincode state
 		return t.Write(stub, args)
 	} else if function == "register" {									//create a new marble
