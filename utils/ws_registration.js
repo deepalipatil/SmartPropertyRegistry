@@ -1,5 +1,5 @@
 // ==================================
-// Part 1 - incoming messages, look for type
+//  incoming messages, look for type
 // ==================================
 var ibc = {};
 var chaincode = {};
@@ -11,28 +11,16 @@ module.exports.setup = function(sdk, cc){
 };
 
 module.exports.process_msg = function(ws, data){
-	if(data.v === 1){																						//only look at messages for part 1
+	if(data.v === 1){						//only look at messages for registration
 		if(data.type == 'create'){
 			console.log('its a create!');
-			if(data.name && data.color && data.size && data.user){
-				chaincode.invoke.init_marble([data.name, data.color, data.size, data.user], cb_invoked);	//create a new marble
+			if(data.name && data.adhaar_no && data.survey_no && data.location && data.area){
+				chaincode.invoke.register([data.name, data.adhaar_no, data.survey_no, data.location, data.area], cb_invoked);	//create a new property
 			}
 		}
 		else if(data.type == 'get'){
-			console.log('get marbles msg');
-			chaincode.query.read(['_marbleindex'], cb_got_index);
-		}
-		else if(data.type == 'transfer'){
-			console.log('transfering msg');
-			if(data.name && data.user){
-				chaincode.invoke.set_user([data.name, data.user]);
-			}
-		}
-		else if(data.type == 'remove'){
-			console.log('removing msg');
-			if(data.name){
-				chaincode.invoke.delete([data.name]);
-			}
+			console.log('get property msg');
+			chaincode.query.read(['_propertyindex'], cb_got_index);
 		}
 		else if(data.type == 'chainstats'){
 			console.log('chainstats msg');
@@ -40,9 +28,9 @@ module.exports.process_msg = function(ws, data){
 		}
 	}
 
-	//got the marble index, lets get each marble
+	//got the property index, lets get each property
 	function cb_got_index(e, index){
-		if(e != null) console.log('[ws error] did not get marble index:', e);
+		if(e != null) console.log('[ws error] did not get property index:', e);
 		else{
 			try{
 				var json = JSON.parse(index);
@@ -52,10 +40,10 @@ module.exports.process_msg = function(ws, data){
 				//serialized version
 				async.eachLimit(keys, concurrency, function(key, cb) {
 					console.log('!', json[key]);
-					chaincode.query.read([json[key]], function(e, marble) {
-						if(e != null) console.log('[ws error] did not get marble:', e);
+					chaincode.query.read([json[key]], function(e, property) {
+						if(e != null) console.log('[ws error] did not get property:', e);
 						else {
-							if(marble) sendMsg({msg: 'marbles', e: e, marble: JSON.parse(marble)});
+							if(property) sendMsg({msg: 'properties', e: e, property: JSON.parse(property)});
 							cb(null);
 						}
 					});
