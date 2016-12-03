@@ -34,30 +34,25 @@ import (
 type SimpleChaincode struct {
 }
 
-var marbleIndexStr = "_marbleindex"				//name for the key/value that will store a list of all known marbles
+var propertyIndexStr = "_propertyindex"				//name for the key/value that will store a list of all known marbles
 var openTradesStr = "_opentrades"				//name for the key/value that will store all open trades
 
-type Marble struct{
-	Name string `json:"name"`					//the fieldtags are needed to keep case from bouncing around
-	Color string `json:"color"`
-	Size int `json:"size"`
-	User string `json:"user"`
+type Property struct{
+	Owner_Name string `json:"name"`					//the fieldtags are needed to keep case from bouncing around
+	Aadhar_no string `json:"adhaar_no"`
+	Survey_no string `json:"survey_no"`
+	Location string `json:"location"`
+	Area string `json:"area"`
+}
+
+type Owners struct{
+	Owner_Name string `json:"name"`					//the fieldtags are needed to keep case from bouncing around
+	Aadhar_no string `json:"adhaar_no"`
 }
 
 type Description struct{
 	Color string `json:"color"`
 	Size int `json:"size"`
-}
-
-type AnOpenTrade struct{
-	User string `json:"user"`					//user who created the open trade order
-	Timestamp int64 `json:"timestamp"`			//utc timestamp of creation
-	Want Description  `json:"want"`				//description of desired marble
-	Willing []Description `json:"willing"`		//array of marbles willing to trade away
-}
-
-type AllTrades struct{
-	OpenTrades []AnOpenTrade `json:"open_trades"`
 }
 
 // ============================================================================================================================
@@ -133,8 +128,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return res, err
 	} else if function == "write" {											//writes a value to the chaincode state
 		return t.Write(stub, args)
-	} else if function == "init_marble" {									//create a new marble
-		return t.init_marble(stub, args)
+	} else if function == "register" {									//create a new marble
+		return t.Register(stub, args)
 	} else if function == "set_user" {										//change owner of a marble
 		res, err := t.set_user(stub, args)
 		cleanTrades(stub)													//lets make sure all open trades are still valid
@@ -250,19 +245,20 @@ func (t *SimpleChaincode) Write(stub shim.ChaincodeStubInterface, args []string)
 }
 
 // ============================================================================================================================
-// Init Marble - create a new marble, store into chaincode state
+// Register property - create a new property, store into chaincode state
 // ============================================================================================================================
-func (t *SimpleChaincode) init_marble(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var err error
 
-	//   0       1       2     3
-	// "asdf", "blue", "35", "bob"
-	if len(args) != 4 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 4")
+	//   0       1              2            3            4
+	// "deeps", "1212-14-13", "534656-55", "pachgaon",  "kop"
+	
+	if len(args) != 5 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 5")
 	}
 
 	//input sanitation
-	fmt.Println("- start init marble")
+	fmt.Println("- start registration of property")
 	if len(args[0]) <= 0 {
 		return nil, errors.New("1st argument must be a non-empty string")
 	}
@@ -275,49 +271,59 @@ func (t *SimpleChaincode) init_marble(stub shim.ChaincodeStubInterface, args []s
 	if len(args[3]) <= 0 {
 		return nil, errors.New("4th argument must be a non-empty string")
 	}
-	name := args[0]
-	color := strings.ToLower(args[1])
-	user := strings.ToLower(args[3])
-	size, err := strconv.Atoi(args[2])
-	if err != nil {
-		return nil, errors.New("3rd argument must be a numeric string")
+	if len(args[4]) <= 0 {
+		return nil, errors.New("5th argument must be a non-empty string")
 	}
+	name := args[0]
+	adhaar_no := args[1]
+	survey_no := args[2]
+	location := args[3]
+	area := args[4]
+	
+	//if err != nil {
+	//	return nil, errors.New("3rd argument must be a numeric string")
+	//}
 
 	//check if marble already exists
-	marbleAsBytes, err := stub.GetState(name)
+	propertyAsBytes, err := stub.GetState(survey_no)
 	if err != nil {
-		return nil, errors.New("Failed to get marble name")
+		return nil, errors.New("Failed to get property")
 	}
-	res := Marble{}
-	json.Unmarshal(marbleAsBytes, &res)
-	if res.Name == name{
-		fmt.Println("This marble arleady exists: " + name)
-		fmt.Println(res);
-		return nil, errors.New("This marble arleady exists")				//all stop a marble by this name exists
+	ownerAsBytes, err := stub.GetState(name)
+	if err != nil {
+		return nil, errors.New("Failed to get owner name")
 	}
 	
-	//build the marble json string manually
-	str := `{"name": "` + name + `", "color": "` + color + `", "size": ` + strconv.Itoa(size) + `, "user": "` + user + `"}`
+	res := Property{}
+	json.Unmarshal(propertyAsBytes, &res)
+	if res.Survey_no == survey_no{
+		fmt.Println("This property arleady exists: " + name)
+		fmt.Println(res);
+		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
+	}
+	
+	//build the property json string manually
+	str := `{"name": "` + name + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `"}`
 	err = stub.PutState(name, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err
 	}
 		
 	//get the marble index
-	marblesAsBytes, err := stub.GetState(marbleIndexStr)
+	marblesAsBytes, err := stub.GetState(propertyIndexStr)
 	if err != nil {
-		return nil, errors.New("Failed to get marble index")
+		return nil, errors.New("Failed to get property index")
 	}
-	var marbleIndex []string
-	json.Unmarshal(marblesAsBytes, &marbleIndex)							//un stringify it aka JSON.parse()
+	var propertyIndex []string
+	json.Unmarshal(marblesAsBytes, &propertyIndex)							//un stringify it aka JSON.parse()
 	
 	//append
-	marbleIndex = append(marbleIndex, name)									//add marble name to index list
-	fmt.Println("! marble index: ", marbleIndex)
-	jsonAsBytes, _ := json.Marshal(marbleIndex)
-	err = stub.PutState(marbleIndexStr, jsonAsBytes)						//store name of marble
+	propertyIndex = append(propertyIndex, name)									//add marble name to index list
+	fmt.Println("! property index: ", propertyIndex)
+	jsonAsBytes, _ := json.Marshal(propertyIndex)
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)						//store name of marble
 
-	fmt.Println("- end init marble")
+	fmt.Println("- end register")
 	return nil, nil
 }
 

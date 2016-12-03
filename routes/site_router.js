@@ -6,7 +6,7 @@
  * All rights reserved. 
  *
  * Contributors:
- *   David Huffman - Initial implementation
+ *   Chanakya - Initial implementation
  *******************************************************************************/
 var express = require('express');
 var router = express.Router();
@@ -26,27 +26,17 @@ function build_bag(){
 // Home
 // ============================================================================================================================
 router.route('/').get(function(req, res){
-	res.redirect('/p1');
+	res.redirect('/home');
 });
 
 // ============================================================================================================================
 // Part 1
 // ============================================================================================================================
-router.route('/p1').get(function(req, res){
-	res.render('part1', {title: 'Marbles Part 1', bag: build_bag()});
+router.route('/home').get(function(req, res){
+	res.render('home', {title: 'Smart Property Registry', bag: build_bag()});
 });
-router.route('/p1/:page?').get(function(req, res){
-	res.render('part1', {title: 'Marbles Part 1', bag: build_bag()});
-});
-
-// ============================================================================================================================
-// Part 2
-// ============================================================================================================================
-router.route('/p2').get(function(req, res){
-	res.render('part2', {title: 'Marbles Part 2', bag: build_bag()});
-});
-router.route('/p2/:page?').get(function(req, res){
-	res.render('part2', {title: 'Marbles Part 2', bag: build_bag()});
+router.route('/home/:page?').get(function(req, res){
+	res.render('home', {title: 'Smart Property Registry', bag: build_bag()});
 });
 
 module.exports = router;
