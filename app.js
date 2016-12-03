@@ -32,7 +32,9 @@ var host = setup.SERVER.HOST;
 var port = setup.SERVER.PORT;
 
 ////////  Pathing and Module Setup  ////////
+
 app.set('views', path.join(__dirname, 'views'));
+console.log('dir name'+__dirname);
 app.set('view engine', 'jade');
 app.engine('.html', require('jade').__express);
 app.use(compression());
