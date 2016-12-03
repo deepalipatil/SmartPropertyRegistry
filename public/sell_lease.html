@@ -37,30 +37,66 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Register a Property</h4>
 					</div>
-							       <div class="modal-body" style="align:center">
+                            <form id="propertyregisterfrom" class="form-inline"   action="">	
+							  <div class="modal-body" style="align:center">
 						       <h5> <strong>Property Owner Details</strong></h5><br>
-								Property Owner Name:  <input type="text" name="name" placeholder="Enter Name" ><br><br>
-								Aadhar Card Number:   &nbsp<input type="number" name="name" placeholder="Enter Aadhar Number"/>
-								<br>
+                                
+                      
+                                <div class="form-group form-inline ">
+                                    <label  for="owner"> Property Owner Name <span style="color:red">*</span>:</label>
+                                    <input id="owner" class="form-control" type="text" name="name" placeholder="Enter Name" required>
+                                </div>
+                                	
+                                <br>
+                                <br>
+                               
+                                <div class="form-group form-inline ">
+                                <label  for="acnumer"> Aadhar Card Number <span style="color:red">*</span>: </label> 
+                                <input id="acnumer" class="form-control" type="number" name="name" placeholder="Enter Aadhar Number" required/>
+								</div>
+                                
+                                <br>
 								<br>
 								<h5><p><strong> Property Details </strong></p></h5>
 								<br>
-								Property Survey No:  &nbsp;<input type="text" name="name" placeholder="Enter Survey No"/>
+								
+                                
+                                <div class="form-group form-inline ">
+                                <label  for="acnumer">Property Survey No <span style="color:red">*</span>:</label> 
+                                <input type="text" name="name" placeholder="Enter Survey No" required/>
+								</div>
+                          
 								<br>
 								<br>
-								Property Location:  &nbsp;&nbsp;&nbsp;<input type="text" name="name" placeholder="Enter Location"/>
+                                
+                                
+                                <div class="form-group form-inline ">
+                                <label  for="acnumer">Property Location <span style="color:red">*</span>:</label> 
+                               <input type="text" name="name" placeholder="Enter Location" required/>
+								</div>
+                                
+                                
 								<br><br>
-								&nbsp;&nbsp;&nbsp;Area Details: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea type="text" name="name" placeholder="Enter Area Details" style="font-family:sans-serif"></textarea>
+								<div class="form-group form-inline ">
+                                <label  for="acnumer">Area Details <span style="color:red">*</span>:</label> 
+                               <textarea type="text" name="name" placeholder="Enter Area Details" style="font-family:sans-serif"></textarea>
+								</div>
+                                
 								<br>
 								<br>
-								<div class="checkbox" >
-									<label><input type="checkbox" value="" onchange='fun1(this);'>Land Property</label>&nbsp;
-									<label><input type="checkbox" value=""onchange='fun1(this);'>Built Up Property</label>
-									</div>
+								<div class="radio" >
+									
+                                    <label class="radio-inline" for="bp"><input id="bp"  type="radio" name="ptype" value=""onchange='fun1(this);'>Built Up Property</label>
+                                    <label class="radio-inline" for="lp"><input id="lp"  type="radio"  name="ptype" value="" onchange='fun1(this);'>Land Property</label>
+									
+								</div>
 					         	</div>
+                                
+                                </div>
 								<div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Register</button>
 							</div>
+                            </form>
 					</div>
       
 			</div>
