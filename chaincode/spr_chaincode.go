@@ -238,7 +238,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	}
 		
 	//get the property index
-	propertyAsBytes, err := stub.GetState(propertyIndexStr)
+	propertyAsBytes, err = stub.GetState(propertyIndexStr)
 	if err != nil {
 		return nil, errors.New("Failed to get property index")
 	}
