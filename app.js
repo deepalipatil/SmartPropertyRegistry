@@ -7,7 +7,7 @@
  * All rights reserved. 
  *
  * Contributors:
- *   David Huffman - Initial implementation
+ *   chanakya - Initial implementation
  *******************************************************************************/
 /////////////////////////////////////////
 ///////////// Setup Node.js /////////////
@@ -140,8 +140,7 @@ require('cf-deployment-tracker-client').track();		//reports back to us, this hel
 // ============================================================================================================================
 // 														Work Area
 // ============================================================================================================================
-var part1 = require('./utils/ws_part1');														//websocket message processing for part 1
-var part2 = require('./utils/ws_part2');														//websocket message processing for part 2
+var reg = require('./utils/ws_registration');														//websocket message 
 var ws = require('ws');																			//websocket mod
 var wss = {};
 var Ibc1 = require('ibm-blockchain-js');														//rest based SDK for ibm blockchain
@@ -249,8 +248,8 @@ ibc.load(options, function (err, cc){														//parse/load chaincode, respo
 	}
 	else{
 		chaincode = cc;
-		part1.setup(ibc, cc);																//pass the cc obj to part 1 node code
-		part2.setup(ibc, cc);																//pass the cc obj to part 2 node code
+		reg.setup(ibc, cc);																//pass the cc obj to part 1 node code
+
 
 		// ---- To Deploy or Not to Deploy ---- //
 		if(!cc.details.deployed_name || cc.details.deployed_name === ''){					//yes, go deploy
@@ -278,7 +277,7 @@ function check_if_deployed(e, attempt){
 	}
 	else{
 		console.log('[preflight check]', attempt, ': testing if chaincode is ready');
-		chaincode.query.read(['_marbleindex'], function(err, resp){
+		chaincode.query.read(['_propertyindex'], function(err, resp){
 			var cc_deployed = false;
 			try{
 				if(err == null){															//no errors is good, but can't trust that alone
@@ -324,8 +323,7 @@ function cb_deployed(e){
 				console.log('received ws msg:', message);
 				try{
 					var data = JSON.parse(message);
-					part1.process_msg(ws, data);											//pass the websocket msg to part 1 processing
-					part2.process_msg(ws, data);											//pass the websocket msg to part 2 processing
+					reg.process_msg(ws, data);											//pass the websocket msg to part 1 processing
 				}
 				catch(e){
 					console.log('ws message error', e);
@@ -355,8 +353,7 @@ function cb_deployed(e){
 				console.log('hey new block, lets refresh and broadcast to all', chain_stats.height-1);
 				ibc.block_stats(chain_stats.height - 1, cb_blockstats);
 				wss.broadcast({msg: 'reset'});
-				chaincode.query.read(['_marbleindex'], cb_got_index);
-				chaincode.query.read(['_opentrades'], cb_got_trades);
+				chaincode.query.read(['_propertyindex'], cb_got_index);
 			}
 			
 			//got the block's stats, lets send the statistics
@@ -369,51 +366,36 @@ function cb_deployed(e){
 				}
 			}
 			
-			//got the marble index, lets get each marble
+			//got the property index, lets get each property
 			function cb_got_index(e, index){
-				if(e != null) console.log('marble index error:', e);
+				if(e != null) console.log('property index error:', e);
 				else{
 					try{
 						var json = JSON.parse(index);
 						for(var i in json){
 							console.log('!', i, json[i]);
-							chaincode.query.read([json[i]], cb_got_marble);					//iter over each, read their values
+							chaincode.query.read([json[i]], cb_got_property);					//iter over each, read their values
 						}
 					}
 					catch(e){
-						console.log('marbles index msg error:', e);
+						console.log('properties index msg error:', e);
 					}
 				}
 			}
 			
-			//call back for getting a marble, lets send a message
-			function cb_got_marble(e, marble){
-				if(e != null) console.log('marble error:', e);
+			//call back for getting a property, lets send a message
+			function cb_got_property(e, property){
+				if(e != null) console.log('property error:', e);
 				else {
 					try{
-						wss.broadcast({msg: 'marbles', marble: JSON.parse(marble)});
+						wss.broadcast({msg: 'properties', property: JSON.parse(property)});
 					}
 					catch(e){
-						console.log('marble msg error', e);
+						console.log('property msg error', e);
 					}
 				}
 			}
 			
-			//call back for getting open trades, lets send the trades
-			function cb_got_trades(e, trades){
-				if(e != null) console.log('trade error:', e);
-				else {
-					try{
-						trades = JSON.parse(trades);
-						if(trades && trades.open_trades){
-							wss.broadcast({msg: 'open_trades', open_trades: trades.open_trades});
-						}
-					}
-					catch(e){
-						console.log('trade msg error', e);
-					}
-				}
-			}
 		});
 	}
 }
