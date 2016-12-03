@@ -6,7 +6,7 @@
  * All rights reserved. 
  *
  * Contributors:
- *   David Huffman - Initial implementation
+ *   Chanakya - Initial implementation
  *******************************************************************************/
 var express = require('express');
 var router = express.Router();
@@ -26,17 +26,18 @@ function build_bag(){
 // Home
 // ============================================================================================================================
 router.route('/').get(function(req, res){
-	res.redirect('/home');
+	res.redirect('/views');
 });
 
 // ============================================================================================================================
 // Part 1
 // ============================================================================================================================
-router.route('/home').get(function(req, res){
-	res.render('home', {title: 'Smart Propert Registry', bag: build_bag()});
+router.route('/views').get(function(req, res){
+	res.render('home', {title: 'Smart Property Registry', bag: build_bag()});
 });
 router.route('/home/:page?').get(function(req, res){
-	res.render('home', {title: 'Smart Propert Registry', bag: build_bag()});
+	res.render('home', {title: 'Smart Property Registry', bag: build_bag()});
 });
 
 module.exports = router;
+
