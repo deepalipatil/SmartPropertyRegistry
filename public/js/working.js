@@ -15,20 +15,36 @@ $(document).ready(function() {
 	// =================================================================================
 	$('#sub').click(function(){
 		//console.log('creating property');
-        //$('#propertyregisterfrom').submit();
+       $('#propertyregisterfrom').submit();
           
             $('#myModal').modal('hide');
               console.log('form data');
+              var data = $('#propertyregisterfrom').serializeArray();
 		var obj = 	{
-						type: 'create',
+						/*type: 'create',
 						name: $('input[name="owner"]').val().replace(' ', ''),
 						adhaar_no: $('select[name="acnumber"]').val(),
 						survey_no: $('select[name="surveyNo"]').val(),
 						location: $('select[name="loc"]').val(),
 						area: $('select[name="areaDet"]').val(),
+                        
+                        */
+                        
+                        
+                        type: 'create',
+						name: data[0].value,
+                        
+						adhaar_no: data[1].value,
+						survey_no: data[2].value,
+						location: data[3].value,
+						area: data[4].value,
+                        
+                        
 					};
+                    console.log(obj.area+'*'+obj.name+'*'+ obj.location+'*'+obj.adhaar_no+'*'+obj.survey_no);
 		if(obj.area && obj.name && obj.location && obj.adhaar_no && obj.survey_no){
-			console.log('creating property, sending', obj);
+			
+            console.log('creating property, sending', obj);
 			ws.send(JSON.stringify(obj));
 		}
 		return false;
