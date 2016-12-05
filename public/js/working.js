@@ -15,7 +15,7 @@ $(document).ready(function() {
 	// =================================================================================
 	$('#sub').click(function(){
 		//console.log('creating property');
-       $('#propertyregisterfrom').submit();
+       //$('#propertyregisterfrom').submit();
           
             $('#myModal').modal('hide');
               console.log('form data');
@@ -38,7 +38,7 @@ $(document).ready(function() {
 						survey_no: data[2].value,
 						location: data[3].value,
 						area: data[4].value,
-                        
+                        		v:1
                         
 					};
                     console.log(obj.area+'*'+obj.name+'*'+ obj.location+'*'+obj.adhaar_no+'*'+obj.survey_no);
@@ -100,7 +100,7 @@ function connect_to_server(){
 								id: msgObj.blockstats.height, 
 								blockstats: msgObj.blockstats
 							};
-				new_block(temp);								//send to blockchain.js
+				//new_block(temp);								//send to blockchain.js
 			}
 			else console.log('rec', msgObj.msg, msgObj);
 		}
