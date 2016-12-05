@@ -26,13 +26,13 @@ function build_bag(){
 // Home
 // ============================================================================================================================
 router.route('/').get(function(req, res){
-	res.redirect('/views');
+	res.redirect('/public');
 });
 
 // ============================================================================================================================
 // Part 1
 // ============================================================================================================================
-router.route('/views').get(function(req, res){
+router.route('/public').get(function(req, res){
 	res.render('home', {title: 'Smart Property Registry', bag: build_bag()});
 });
 router.route('/home/:page?').get(function(req, res){

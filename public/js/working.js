@@ -5,24 +5,27 @@ var ws = {};
 // On Load
 // =================================================================================
 $(document).ready(function() {
-	connect_to_server();
+    connect_to_server(); 
+    console.log('in ready');
+	
 	$('input[name="name"]').val('r' + randStr(6));
 	
 	// =================================================================================
 	// jQuery UI Events
 	// =================================================================================
 	$('#sub').click(function(){
-		console.log('creating property');
-        $("propertyregisterfrom").submit();
-            console.log('form data');
+		//console.log('creating property');
+        //$('#propertyregisterfrom').submit();
+          
             $('#myModal').modal('hide');
+              console.log('form data');
 		var obj = 	{
 						type: 'create',
 						name: $('input[name="owner"]').val().replace(' ', ''),
 						adhaar_no: $('select[name="acnumber"]').val(),
 						survey_no: $('select[name="surveyNo"]').val(),
-						location: $('select[name="location"]').val(),
-						area: $('select[name="area"]').val(),
+						location: $('select[name="loc"]').val(),
+						area: $('select[name="areaDet"]').val(),
 					};
 		if(obj.area && obj.name && obj.location && obj.adhaar_no && obj.survey_no){
 			console.log('creating property, sending', obj);
@@ -30,6 +33,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+   
 });
 	
 
@@ -48,13 +52,13 @@ function connect_to_server(){
 		ws.onopen = function(evt) { onOpen(evt); };
 		ws.onclose = function(evt) { onClose(evt); };
 		ws.onmessage = function(evt) { onMessage(evt); };
-		ws.onerror = function(evt) { onError(evt); };
+		//ws.onerror = function(evt) { onError(evt); };
 	}
 	
 	function onOpen(evt){
 		console.log('WS CONNECTED');
 		connected = true;
-		clear_blocks();
+		//clear_blocks();
 		$('#errorNotificationPanel').fadeOut();
 		ws.send(JSON.stringify({type: 'get', v:1}));
 		ws.send(JSON.stringify({type: 'chainstats', v:1}));
