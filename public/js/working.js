@@ -4,20 +4,23 @@ var ws = {};
 // =================================================================================
 // On Load
 // =================================================================================
-$(document).on('ready', function() {
+$(document).ready(function() {
 	connect_to_server();
 	$('input[name="name"]').val('r' + randStr(6));
 	
 	// =================================================================================
 	// jQuery UI Events
 	// =================================================================================
-	$('#submit').click(function(){
+	$('#sub').click(function(){
 		console.log('creating property');
+        $("propertyregisterfrom").submit();
+            console.log('form data');
+            $('#myModal').modal('hide');
 		var obj = 	{
 						type: 'create',
-						name: $('input[name="name"]').val().replace(' ', ''),
-						adhaar_no: $('select[name="adhaar_no"]').val(),
-						survey_no: $('select[name="survey_no"]').val(),
+						name: $('input[name="owner"]').val().replace(' ', ''),
+						adhaar_no: $('select[name="acnumber"]').val(),
+						survey_no: $('select[name="surveyNo"]').val(),
 						location: $('select[name="location"]').val(),
 						area: $('select[name="area"]').val(),
 					};
@@ -27,10 +30,8 @@ $(document).on('ready', function() {
 		}
 		return false;
 	});
-
-	$('#createLink').click(function(){
-		$('input[name="survey_no"]').val('r' + randStr(6));
-	});
+});
+	
 
 
 // =================================================================================
