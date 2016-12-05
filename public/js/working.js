@@ -40,7 +40,6 @@ $(document).ready(function() {
 function connect_to_server(){
 	var connected = false;
 	connect();
-	
 	function connect(){
 		var wsUri = 'ws://' + document.location.hostname + ':' + document.location.port;
 		console.log('Connectiong to websocket', wsUri);
