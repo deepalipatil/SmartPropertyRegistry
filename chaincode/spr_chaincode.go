@@ -207,11 +207,11 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	if len(args[4]) <= 0 {
 		return nil, errors.New("5th argument must be a non-empty string")
 	}
-	name := TrimSpace(args[0])
-	adhaar_no := TrimSpace(args[1])
-	survey_no := TrimSpace(args[2])
-	location := TrimSpace(args[3])
-	area := TrimSpace(args[4])
+	name := args[0]
+	adhaar_no := args[1]
+	survey_no := args[2]
+	location := args[3]
+	area := args[4]
 	
 	//if err != nil {
 	//	return nil, errors.New("3rd argument must be a numeric string")
@@ -225,7 +225,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)
-	if (compare(res.Survey_no, survey_no)==0){
+	if res.Survey_no == survey_no {
 		fmt.Println("This property arleady exists: " + survey_no)
 		fmt.Println(res);
 		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
