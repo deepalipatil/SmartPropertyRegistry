@@ -42,7 +42,7 @@
                           </div>
                             	
 							  <div class="modal-body" style="align:center">
-                                <form id="propertyregisterfrom" class="form-inline"  METHOD="POST" novalidate>
+                                <form id="propertyregisterfrom" class="form-inline"  METHOD="POST">
                                 <h5> <strong>Property Owner Details</strong></h5><br>
                                 
                       
@@ -91,8 +91,8 @@
                                 
                                 <div class="form-group form-inline radio ">
                                 <label class="radio-inline" for="bp">
-                                <input id="bp"  type="radio" name="ptype" value=""onchange='fun1(this);'>Built Up Property</label>
-                                <label class="radio-inline" for="lp"><input id="lp"  type="radio"  name="ptype" value="" onchange='fun1(this);'>Land Property</label>
+                                <input id="bp"  type="radio" name="ptype" value="" required>Built Up Property</label>
+                                <label class="radio-inline" for="lp"><input id="lp"  type="radio"  name="ptype" value="" required>Land Property</label>
 								</div>
                                 
                                 
@@ -100,7 +100,7 @@
                                 
                                
 								<div class="modal-footer">
-                                <button type="button" id="sub" class="btn btn-success" >Register</button>
+                                		<button type="button" id="sub" class="btn btn-success" >Register</button>
                                 
 							</div>
                             </form>
