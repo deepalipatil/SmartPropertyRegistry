@@ -81,12 +81,12 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 		return nil, err
 	}
 	
-	//var empty []string
-	//jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
-	//err = stub.PutState(propertyIndexStr, jsonAsBytes)
-	//if err != nil {
-		//return nil, err
-	//}
+	var empty []string
+	jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)
+	if err != nil {
+		return nil, err
+	}
 	
 	return nil, nil
 }
@@ -153,7 +153,6 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 
 	return valAsbytes, nil													//send it onward
 }
-
 
 
 // ============================================================================================================================
@@ -225,7 +224,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)
-	if res.Survey_no == survey_no {
+	if res.Survey_no == survey_no{
 		fmt.Println("This property arleady exists: " + survey_no)
 		fmt.Println(res);
 		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
