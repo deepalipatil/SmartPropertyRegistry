@@ -15,8 +15,9 @@ $(document).ready(function() {
 	// =================================================================================
 	$('#sub').click(function(){
 		//console.log('creating property');
-       //$('#propertyregisterfrom').submit();
-          
+     
+          //$('#propertyregisterfrom').checkValidity();
+     		//  $('#propertyregisterfrom').submit();
             $('#myModal').modal('hide');
               console.log('form data');
               var data = $('#propertyregisterfrom').serializeArray();
@@ -43,7 +44,7 @@ $(document).ready(function() {
 					};
                     console.log(obj.area+'*'+obj.name+'*'+ obj.location+'*'+obj.adhaar_no+'*'+obj.survey_no);
 		if(obj.area && obj.name && obj.location && obj.adhaar_no && obj.survey_no){
-			
+			success(obj.name);
             console.log('creating property, sending', obj);
 			ws.send(JSON.stringify(obj));
 		}
@@ -52,6 +53,10 @@ $(document).ready(function() {
    
 });
 	
+
+function success(name){
+	alert("Congratulations! "+name+" , Your Property Registered");
+}
 
 
 // =================================================================================

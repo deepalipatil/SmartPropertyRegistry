@@ -155,6 +155,43 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 }
 
 
+func (t *SimpleChaincode) Delete(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+	if len(args) != 1 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+	}
+	
+	name := args[0]
+	err := stub.DelState(name)													//remove the key from chaincode state
+	if err != nil {
+		return nil, errors.New("Failed to delete state")
+	}
+
+	//get the marble index
+	propertyAsBytes, err := stub.GetState(propertyIndexStr)
+	if err != nil {
+		return nil, errors.New("Failed to get marble index")
+	}
+	var propertyIndex []string
+	json.Unmarshal(propertyAsBytes, &propertyIndex)								//un stringify it aka JSON.parse()
+	
+	//remove marble from index
+	for i,val := range propertyIndex{
+		fmt.Println(strconv.Itoa(i) + " - looking at " + val + " for " + name)
+		if val == name{															//find the correct marble
+			fmt.Println("found")
+			propertyIndex = append(propertyIndex[:i], propertyIndex[i+1:]...)			//remove it
+			for x:= range propertyIndex{											//debug prints...
+				fmt.Println(string(x) + " - " + propertyIndex[x])
+			}
+			break
+		}
+	}
+	jsonAsBytes, _ := json.Marshal(propertyIndex)									//save new index
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)
+	return nil, nil
+}
+
+
 // ============================================================================================================================
 // Write - write variable into chaincode state
 // ============================================================================================================================
@@ -206,11 +243,11 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	if len(args[4]) <= 0 {
 		return nil, errors.New("5th argument must be a non-empty string")
 	}
-	name := args[0]
-	adhaar_no := args[1]
-	survey_no := args[2]
-	location := args[3]
-	area := args[4]
+	name := TrimSpace(args[0])
+	adhaar_no := TrimSpace(args[1])
+	survey_no := TrimSpace(args[2])
+	location := TrimSpace(args[3])
+	area := TrimSpace(args[4])
 	
 	//if err != nil {
 	//	return nil, errors.New("3rd argument must be a numeric string")
@@ -224,11 +261,16 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)
-	if res.Survey_no == survey_no{
+	if (compare(res.Survey_no, survey_no)==0){
 		fmt.Println("This property arleady exists: " + survey_no)
 		fmt.Println(res);
 		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
 	}
+	else{
+		
+		
+	}
+	name:=res.Survey_no;
 	
 	//build the property json string manually
 	str := `{"name": "` + name + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `"}`
