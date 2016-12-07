@@ -15,7 +15,10 @@ let timeDiff; //Time difference between two blocks
 let scrollWidth;
 let max;
 let min;
-
+let block1;
+let prev;
+let b;
+let blk;
 $(document).ready(function(){
 
     $('#goTo').bind('keyup', function(e) {
@@ -49,14 +52,16 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: '/blockchain/blocks',
+        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
+			console.log(d);
             chainHeight = d.height;
+			console.log('Height'+chainHeight);
             blockNum = d.height - 1;
             startBlock = d.height - 1;
             storeBlock = d.height - 1;
             lastBlockHash = d.currentBlockHash;
-            console.log((d));
+            console.log(blockNum);
         },
         error: function(e){
             console.log(e);
@@ -73,10 +78,15 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://car-lease-demo-sumanthonnavar-156.mybluemix.net/blockchain/blocks/' + (blockNum),
+        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+blockNum,
         success: function(d) {
-            block = d.block;
-
+			b=d;
+            block = d.transactions;
+			console.log("i m undefined");
+			console.log("length "+d.length+"  real "+block);
+			block1 = d.nonHashData.localLedgerCommitTimestamp.seconds;
+			console.log('Sum'+block1+d);
+			console.log('Inside'+block);
         },
         error: function(e){
             console.log(e);
@@ -85,44 +95,53 @@ $(document).ready(function(){
     });
 
     let transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
-
-    blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
-
-    prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds); //Needs changing. Not past 50 blocks.
+	blockTime = block1;
+	
+    prevFiftyBlocks.push(blockTime); //Needs changing. Not past 50 blocks.
 
     if(blockNum > 0) //If not the genesis block..
     {
-        for(let i = 0; i < block.transactions.length; i++) {
-            transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].txid+'</span>';
+		if(typeof block != 'undefined'){	
+        for(let i = 0; i < block.length; i++) {
+            transSpans+='<br /><span class="blocksTransactions">'+block[i].txid+'</span>';
         }
-
-        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
-
+		}
+		if(typeof block != 'undefined'){
+        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+b.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.length))+'"></input></div>');
+		}
+		else
+		{
+		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+b.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /></div><input type="hidden" class="height" value="'+(351+(39))+'"></input></div>');
+		}
+		console.log('13th'+block.previousBlockHash);
         $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
 
-        lastBlockHash = block.previousBlockHash;
+        prev = b.previousBlockHash;
 
-        blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
+        prevFiftyBlocks.push(blockTime);
 
-        prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
-
-        transData.push(block.transactions.length);
-        $('#transLast').html(block.transactions.length);
-
+        transData.push(block.length);
+        $('#transLast').html(block.length);
+		
         for(let i = 1; i < 126; i++)
         {
+		
             if(blockNum - i > 0)
             {
-                let blk;
-
+                
+				
                 $.ajax({
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: '/blockchain/blocks/'+(blockNum-i),
+                    url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
                     success: function(d) {
-                        blk = d.block;
+                        blk = d.transactions;
+						console.log('Sumanth'+blk);
+						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
+						lastBlockHash = d.previousBlockHash;
+						console.log(lastBlockHash+'lastttt');
                     },
                     error: function(e){
                         console.log(e);
@@ -130,22 +149,25 @@ $(document).ready(function(){
                     async: false
                 });
 
-                prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds);
-
-                transData.push(blk.transactions.length);
-
+                prevFiftyBlocks.push(blockTime);
+				if(typeof blk != 'undefined'){
+                transData.push(blk.length);
+				}
+				
                 transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
 
-                if (block.transactions) {
-                    for(let j = 0; j < blk.transactions.length; j++)
+                if (blk) {
+                    for(let j = 0; j < blk.length; j++)
                     {
-                        transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk.transactions[j].txid+'\') ">'+blk.transactions[j].txid+'</span>';
+                        transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk[j].txid+'\') ">'+blk[j].txid+'</span>';
                     }
 
-                    $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+blk.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blk.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.transactions.length))+'"></input></div>');
-                }
-
-                lastBlockHash = blk.previousBlockHash;
+                    $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+prev+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.length))+'"></input></div>');
+					prev=lastBlockHash;
+				}
+				
+                
+				
             }
             else if(blockNum - i == 0) //If genesis block..
             {
@@ -157,10 +179,11 @@ $(document).ready(function(){
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://car-lease-demo-sumanthonnavar-156.mybluemix.net/blockchain/blocks/'+(blockNum-i),
+                    url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
                     success: function(d) {
-                        blk = d.block;
-
+                        b=d;
+                        blk = d.transcations;
+						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
                     },
                     error: function(e){
                         console.log(e);
@@ -168,13 +191,15 @@ $(document).ready(function(){
                     async: false
                 });
 
-                $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blk.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
+                $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
             }
             else
             {
                 break;
             }
         }
+		
+		
     }
     else
     {
@@ -183,7 +208,7 @@ $(document).ready(function(){
 
         transSpans+='<br /><span class="blocksTransactions">No transactions in the Genesis block.</span>';
 
-        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>');
+        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(b.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>');
     }
 
     //If there are more than 125 blocks, HTML is created but data isn't filled. Used to reduce page load.
@@ -263,7 +288,7 @@ function updatePage()
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://car-lease-demo-sumanthonnavar-156.mybluemix.net/blockchain/blocks',
+        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
             blockNum = d.height - 1;
             lastBlockHash = d.currentBlockHash;
@@ -284,7 +309,7 @@ function updatePage()
             dataType : 'json',
             contentType: 'application/json',
             crossDomain:true,
-            url: '/blockchain/blocks/' + blockNum,
+            url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + blockNum,
             success: function(d) {
                 block = d.block;
 
@@ -408,7 +433,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://car-lease-demo-sumanthonnavar-156.mybluemix.net/blockchain/blocks' + (number),
+        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (number),
         success: function(d) {
             block = d.block;
 
@@ -424,7 +449,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: '/blockchain/blocks/' + (parseInt(number)+1),
+        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (parseInt(number)+1),
         success: function(d) {
             lastBlockHash = d.block.previousBlockHash;
         },

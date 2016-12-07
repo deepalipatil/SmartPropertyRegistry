@@ -25,32 +25,25 @@
 			<h1 style="color: black; text-align: center; font-family:monospace; font-size: 300%" ><strong>SMART PROPERTY REGISTRY</strong></h1>
 				<dd style="text-align: center; font-size: 150%">  Blockchain enabled solution for property registry</dd>
 		</div>
-		<table>
-			<tr>
-				<td class="smlBrk"></td>
-				<td colspan="4" class="homeBtn" ><a href="index.html" >Home</a></td>
-				<td class="smlBrk"></td>
-			</tr>
-			<tr>
-				<td class="smlBrk"></td>
-				<td colspan="4" class="bigTxt" style="padding-top:25px;">Live Stats</td>
-				<td class="smlBrk"></td>
-			</tr>
-			</table>
-		<table class="table" >
-			<thead>
-			<tr>
-			<th class="statsRw noLBord" ><span class="statHdr" >Last Block</span><span class="valDisp" ><span id="currBlock" ></span></span></th>
-				<th class="statsRw allBord" ><span class="statHdr" >Created</span><span class="valDisp" ><span id="timeSince"></span></span></th>
-				<th class="statsRw noRBord" ><span class="statHdr" >Avg Block Time</span><span class="valDisp" ><span id="avgTime"></span></span></th>
-			</tr>
-			</thead>
-			</table>
-			<table>
+			
+	<h3 align="center" style="font-size=125%" ><a class="homeBtn" href="index.html" style="color:black" >Home</a></h3>
+<h1 class="bigTxt" style="padding-top:25px; font-size=125%" align="center"><strong style="color:black">Live Stats</strong></h1>	
+		<table class="table table-bordered" align="center">
+    <thead>
+      <tr>
+        <th class="statsRw noLBord"style="width:33%;text-align:center" ><span class="statHdr" style="font-size:125%"><strong style="color:black">Last Block</strong></span><span class="valDisp" ><span id="currBlock" ></span></span></th>
+				<th class="statsRw allBord" style="width:33%;text-align:center"><span class="statHdr" style="font-size:125%"><strong style="color:black">Created</strong></span><span class="valDisp" ><span id="timeSince"></span></span></th>
+				<th class="statsRw noRBord" style="width:33%;text-align:center"><span class="statHdr" style="font-size:125%"><strong style="color:black">Avg Block Time</strong></span><span class="valDisp" ><span id="avgTime"></span></span></th>
+      </tr>
+    </thead>
+  </table>		
+		
+			<br>
+			<table class="table" style="width:100%" >
 			<tr>
 				<td class="smlBrk"></td>
 				<td colspan="4" class="bigTxt" style="overflow:hidden">
-					<span style="position:relative; left:0px; display:inline-block; width:400px;">Blockchain Explorer</span>
+					<span style="position:relative; left:0px; display:inline-block; width:400px;"><strong style="color:black">Blockchain Explorer</strong></span>
 					<input id='goTo' value="Block..." style="position:relative; display:inline-block; left:100%; margin-left:0px; color: rgb(0, 100, 141); font-family: arial,helvetica,sans-serif; padding: 2.5px; width:110px; font-size:0.8em; border:0;" onfocus="this.select()" type="text" />
 					<img src="search.svg" id="srchBtn" onclick="toggleSearch(this)" style="position:relative; background-color:#FFF; z-index:99; float: right; margin-top:3px; padding: 1.5px; cursor: pointer;" width="20" />
 					<br />
@@ -63,13 +56,7 @@
 				<td colspan="4"><div id="leftHldr" onclick="scrollBlocksLeft()"><div class="arrow_left_box"></div></div><div id="rightHldr" onclick="scrollBlocksRight()"><div class="arrow_right_box"></div></div><div id="blockHolder" ><span id="blockScroll"></span></div></td>
 				<td class="smlBrk"></td>
 			</tr>
-			<tr>
-				<td class="smlBrk gapRw"></td>
-				<td class="gapRw"></td>
-				<td class="smlBrk gapRw"></td>
-				<td class="gapRw"></td>
-				<td class="smlBrk gapRw"></td>
-			</tr>
+			
 		</table>
 	</body>
 </html>
