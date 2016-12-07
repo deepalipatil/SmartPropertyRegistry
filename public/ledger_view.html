@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="ledger.js"></script>
+
+
+	<style>
+		th{
+			text-align: center;
+		}
+		.table-bordered td, .table-bordered th{
+		border-color: black !important;
+		}
+	</style>
+    </head>
+
+	<body class="Container" style="background: url(bg3.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;">
+		<br><br><br>
+		<div class="well container" style="background-image:url('temp1.png'); position:realtive; background-repeat: no-repeat; background-size:cover" >
+			<h1 style="color: black; text-align: center-left; font-family:monospace; font-size: 300%" ><strong>SMART PROPERTY REGISTRY</strong></h1>
+			<dd style="text-align: center; font-size: 150%">  Blockchain enabled solution for property registry</dd>
+		</div>
+		<div align="center">
+		<a href="index.html" style="color:black ;font-size:30px; font-family:Times New Roman"><strong>Home</strong></a>
+		</div>
+		<div class="container">
+		<h2><strong style="color:black;font-size:30px; font-family:Times New Roman">Ledger View...</strong></h2><br>
+	<div class="table-responsive">
+  <table class="table table-bordered table-hover" style="text-align: center; border-top-color:black">
+    <thead style="text-align: center; color:black; font-family:Times New Roman; font-size:30px">
+      <tr>
+        <th>Transaction ID</th>
+        <th>Description</th>
+        <th>Date and Time</th>
+      </tr>
+    </thead>
+    <tbody id="d" style="font-family:Times New Roman font-size:25px">
+    </tbody>
+  </table>
+  </div>
+</div>
+		
+		
+    </body>
+</html>

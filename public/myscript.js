@@ -1,5 +1,5 @@
 function createProperty(){
-	alert("Property Registered");
+	alert("Property Created");
 }
 function buyProperty(){
 	alert("Property Bought");

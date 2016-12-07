@@ -1,4 +1,4 @@
-/* global new_block,formatDate, randStr, bag, $, clear_blocks, document, WebSocket, escapeHtml, window */
+
 var ws = {};
 
 // =================================================================================
@@ -6,55 +6,9 @@ var ws = {};
 // =================================================================================
 $(document).ready(function() {
     connect_to_server(); 
-    console.log('in ready');
+    console.log('ready to transfer');
 	
-	//$('input[name="name"]').val('r' + randStr(6));
-	
-	// =================================================================================
-	// jQuery UI Events
-	// =================================================================================
-	$('#sub').click(function(){
-		//console.log('creating property');
-       //$('#propertyregisterfrom').submit();
-          
-            $('#myModal').modal('hide');
-              console.log('form data');
-              var data = $('#propertyregisterfrom').serializeArray();
-		var obj = 	{
-						/*type: 'create',
-						name: $('input[name="owner"]').val().replace(' ', ''),
-						adhaar_no: $('select[name="acnumber"]').val(),
-						survey_no: $('select[name="surveyNo"]').val(),
-						location: $('select[name="loc"]').val(),
-						area: $('select[name="areaDet"]').val(),
-                        
-                        */
-                        
-                        
-                        type: 'create',
-						name: data[0].value,
-                        
-						adhaar_no: data[1].value,
-						survey_no: data[2].value,
-						location: data[3].value,
-						area: data[4].value,
-                        		v:1
-                        
-					};
-                    console.log(obj.area+'*'+obj.name+'*'+ obj.location+'*'+obj.adhaar_no+'*'+obj.survey_no);
-		if(obj.area && obj.name && obj.location && obj.adhaar_no && obj.survey_no){
-			
-            console.log('creating property, sending', obj);
-			ws.send(JSON.stringify(obj));
-		}
-		else{
-			alert("You haven't inserted all required data!");
-		}
-		return false;
-	});
-   
-   
-   	$('#transfer').click(function(){
+	$('#transfer').click(function(){
 		console.log('transferring property');
    
 		var obj = 	{
@@ -71,7 +25,7 @@ $(document).ready(function() {
                         type: 'transfer',
 						name: "deepali",
 						survey_no: "sr-111",
-						new_name: "Sumanth",
+						new_name: "Sumanth"
                         		v:1
                         
 					};
@@ -86,7 +40,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+   
 });
 	
 

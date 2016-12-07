@@ -52,7 +52,7 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain',
+        url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain',
         success: function(d) {
 			console.log(d);
             chainHeight = d.height;
@@ -78,7 +78,7 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+blockNum,
+        url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+blockNum,
         success: function(d) {
 			b=d;
             block = d.transactions;
@@ -135,7 +135,7 @@ $(document).ready(function(){
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transactions;
 						console.log('Sumanth'+blk);
@@ -179,9 +179,8 @@ $(document).ready(function(){
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
-                        b=d;
                         blk = d.transcations;
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
                     },
@@ -208,7 +207,7 @@ $(document).ready(function(){
 
         transSpans+='<br /><span class="blocksTransactions">No transactions in the Genesis block.</span>';
 
-        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(b.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>');
+        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>');
     }
 
     //If there are more than 125 blocks, HTML is created but data isn't filled. Used to reduce page load.
@@ -288,7 +287,7 @@ function updatePage()
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain',
+        url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain',
         success: function(d) {
             blockNum = d.height - 1;
             lastBlockHash = d.currentBlockHash;
@@ -309,7 +308,7 @@ function updatePage()
             dataType : 'json',
             contentType: 'application/json',
             crossDomain:true,
-            url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + blockNum,
+            url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + blockNum,
             success: function(d) {
                 block = d.block;
 
@@ -433,7 +432,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (number),
+        url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + (number),
         success: function(d) {
             block = d.block;
 
@@ -449,7 +448,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://275e6e9185a445bfa97fc8ce1fc98abe-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (parseInt(number)+1),
+        url: 'https://32e265a4d241454dbb9e8073d46f4fb6-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + (parseInt(number)+1),
         success: function(d) {
             lastBlockHash = d.block.previousBlockHash;
         },

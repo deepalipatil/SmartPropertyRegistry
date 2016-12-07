@@ -18,6 +18,13 @@ module.exports.process_msg = function(ws, data){
 				chaincode.invoke.register([data.name, data.adhaar_no, data.survey_no, data.location, data.area], cb_invoked);	//create a new property
 			}
 		}
+		else if(data.type == 'transfer'){
+			console.log('its a transfer!');
+			if(data.name && data.survey_no && data.new_name){
+				console.log('invoking transfer!');
+				chaincode.invoke.transfer([data.name, data.survey_no, data.new_name], cb_invoked);	//create a new property
+			}
+		}
 		else if(data.type == 'get'){
 			console.log('get property msg');
 			chaincode.query.read(['_propertyindex'], cb_got_index);
