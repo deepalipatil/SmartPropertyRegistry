@@ -64,5 +64,11 @@ exports.SERVER.vcap_app = vcap_app;
 ////////////////////////////////////////     Common     ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 exports.DEBUG = vcap_app;
-exports.USER1 = 'bob';									//left username
-exports.USER2 = 'leroy';								//right username
+exports.USER1 = 'sameera';									
+exports.USER2 = 'mukta';
+exports.USER3 = 'deepali';
+exports.USER4 = 'shrinivas';
+exports.USER5 = 'sumanth';
+exports.USER6 = 'pooja';
+exports.USER7 = 'monika';
+								
