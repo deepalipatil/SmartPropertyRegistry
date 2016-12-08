@@ -82,12 +82,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 		return nil, err
 	}
 	
-	var props AllProps
-	jsonAsBytes, _ = json.Marshal(props)								//clear the open trade struct
-	err = stub.PutState(allPropStr, jsonAsBytes)
-	if err != nil {
-		return nil, err
-	}
+	
 	
 	return nil, nil
 }
@@ -277,7 +272,7 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)										//look for the prop
 			
-	res.Owner_name = args[2]														//change the user
+	//res.Owner_name = args[2]														//change the user
 
 	jsonAsBytes, _ := json.Marshal(res)
 	err = stub.PutState(res.Survey_no, jsonAsBytes)								//rewrite the prop with id as key
@@ -285,9 +280,6 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 		return nil, err
 	}
 			
-		}
-	}
-
 	fmt.Println("- end transfer")
 	return nil, nil
 }
