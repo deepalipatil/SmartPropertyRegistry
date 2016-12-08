@@ -1,6 +1,0 @@
-var u=require('setup.js');
-
-function usr(){
-    
-    console.log(u.USER1);
-}

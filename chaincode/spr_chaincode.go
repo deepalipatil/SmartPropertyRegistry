@@ -285,9 +285,7 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 		return nil, err
 	}
 			
-		}
-	}
-
+		
 	fmt.Println("- end transfer")
 	return nil, nil
 }

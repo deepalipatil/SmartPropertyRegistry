@@ -1,31 +1,5 @@
 /* global new_block,formatDate, randStr, bag, $, clear_blocks, document, WebSocket, escapeHtml, window */
-'use strict';
 var ws = {};
-
-let prevFiftyBlocks = []; //Previous 125 block times (when committed to blockchain)
-let timeData = [];
-let transData = [];
-let storeBlock; //Latest block
-let blockTime;
-let chainHeight;
-let blockNum; //Chain height/length
-let sum = 0; //Sum of total time between blocks
-let avg = 'N/A';
-let startBlock;
-let stdDev;
-let minMax;
-let timeDiff; //Time difference between two blocks
-let scrollWidth;
-let max;
-let min;
-let block1;
-let prev;
-let b;
-let blk;
-let payload;
-let transSpans;
-let data;
-let date,date1;
 
 // =================================================================================
 // On Load
@@ -33,6 +7,8 @@ let date,date1;
 $(document).ready(function() {
     connect_to_server(); 
     console.log('in ready');
+	
+	//$('input[name="name"]').val('r' + randStr(6));
 	
 	// =================================================================================
 	// jQuery UI Events
@@ -76,114 +52,6 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-    
-     $('a.lnk').click(function(){
-        
-        
-         $.ajax({
-        type: 'GET',
-        dataType : 'json',
-        contentType: 'application/json',
-        crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain',
-        success: function(d) {
-			console.log(d);
-            chainHeight = d.height;
-			console.log('Height'+chainHeight);
-            blockNum = d.height - 1;
-            console.log(blockNum);
-        },
-        error: function(e){
-            console.log(e);
-        },
-        async: false
-    });
-	
-	for(let i = 1; i <= chainHeight; i++)
-        {
-		
-            if(blockNum - i > 0)
-            {
-                
-				
-                $.ajax({
-                    type: 'GET',
-                    dataType : 'json',
-                    contentType: 'application/json',
-                    crossDomain:true,
-                    url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
-                    success: function(d) {
-						
-                        blk = d.transactions[0];
-						
-						if(typeof blk != 'undefined'){
-						console.log(d);
-						console.log('Sumanth'+blk);
-						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
-						payload=blk.payload;
-						payload=window.atob(payload);
-						data=payload.split("\n");
-						console.log(data[3]+' is NAME');
-                        console.log((data[3].toLowerCase()).trim()===("Pooja Dontul".toLowerCase()).trim() + ' t/f');
-                            if((data[3].toLowerCase()).trim()===("Pooja Dontul".toLowerCase()).trim()){
-                                //var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
-                                console.log('input  '+data[3]);
-                                $("#ppp").append('<input type="checkbox" >'+data[3]+' '+data[4]+'</input><br>')
-                               // $("#abc").load(data[4])
-                                //$("ul").add('<li class="list-group-item" style="display:block"><label><input type="checkbox" value=""   >'+data[3]+'-'+data[4]+'</label></li>');
-                            }
-                        }
-                    },
-                    error: function(e){
-                        console.log(e);
-                    },
-                    async: false
-                });
-
-                prevFiftyBlocks.push(blockTime);
-				if(typeof blk != 'undefined'){
-                transData.push(blk.length);
-				}
-				
-                
-				
-                
-				
-            }
-            else if(blockNum - i == 0) //If genesis block..
-            {
-
-                let blk;
-
-                $.ajax({
-                    type: 'GET',
-                    dataType : 'json',
-                    contentType: 'application/json',
-                    crossDomain:true,
-                    url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
-                    success: function(d) {
-                        blk = d.transcations;
-						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
-                    },
-                    error: function(e){
-                        console.log(e);
-                    },
-                    async: false
-                });
-
-               // $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
-            }
-            else
-            {
-                break;
-            }
-        }
-		});
-
-        
-        
-    
-
    
    
    	$('#transfer').click(function(){

@@ -52,7 +52,7 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain',
+        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
 			console.log(d);
             chainHeight = d.height;
@@ -78,7 +78,7 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+blockNum,
+        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+blockNum,
         success: function(d) {
 			b=d;
             block = d.transactions;
@@ -135,7 +135,7 @@ $(document).ready(function(){
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
+                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transactions;
 						console.log('Sumanth'+blk);
@@ -179,7 +179,7 @@ $(document).ready(function(){
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
+                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transcations;
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
@@ -287,7 +287,7 @@ function updatePage()
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain',
+        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
             blockNum = d.height - 1;
             lastBlockHash = d.currentBlockHash;
@@ -308,7 +308,7 @@ function updatePage()
             dataType : 'json',
             contentType: 'application/json',
             crossDomain:true,
-            url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + blockNum,
+            url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + blockNum,
             success: function(d) {
                 block = d.block;
 
@@ -432,7 +432,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + (number),
+        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (number),
         success: function(d) {
             block = d.block;
 
@@ -448,7 +448,7 @@ function getBlockData(number, el)
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://8f9fdaeef1e544829a398e3e20dc0bd9-vp0.us.blockchain.ibm.com:5003/chain/blocks/' + (parseInt(number)+1),
+        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/' + (parseInt(number)+1),
         success: function(d) {
             lastBlockHash = d.block.previousBlockHash;
         },

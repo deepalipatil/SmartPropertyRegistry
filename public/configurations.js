@@ -1,4 +1,3 @@
-
 let config = {};
 
 config.participants = {};
