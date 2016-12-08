@@ -32,8 +32,7 @@ $(document).ready(function() {
                         
                         
                         type: 'create',
-						name: data[0].value,
-                        
+						name: data[0].value,                        
 						adhaar_no: data[1].value,
 						survey_no: data[2].value,
 						location: data[3].value,
@@ -46,6 +45,7 @@ $(document).ready(function() {
 			
             console.log('creating property, sending', obj);
 			ws.send(JSON.stringify(obj));
+			alert("Congrats! "+name+" Your property has been registered!");
 		}
 		else{
 			alert("You haven't inserted all required data!");
@@ -54,7 +54,7 @@ $(document).ready(function() {
 	});
    
    
-   	/* $('#transfer').click(function(){
+   	 $('#transfer').click(function(){
 		console.log('transferring property');
    
 		var obj = 	{
@@ -65,12 +65,12 @@ $(document).ready(function() {
 						location: $('select[name="loc"]').val(),
 						area: $('select[name="areaDet"]').val(),
                         
-                        
+                        */
                         
                         
                         type: 'transfer',
-						name: "deepali",
-						survey_no: "sr-111",
+						name: "Ashwini",
+						survey_no: "A1234",
 						new_name: "Sumanth",
                         		v:1
                         
@@ -85,7 +85,7 @@ $(document).ready(function() {
 			alert("You haven't inserted all required data!");
 		}
 		return false;
-	}); */
+	}); 
 	
 });
 	

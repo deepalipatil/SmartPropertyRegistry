@@ -106,6 +106,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return t.Write(stub, args)
 	} else if function == "register" {									//create a new marble
 		return t.Register(stub, args)
+	} else if function == "transfer" {									//create a new marble
+		return t.transfer(stub, args)
 	} 
 	fmt.Println("invoke did not find func: " + function)					//error
 
@@ -271,11 +273,11 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 			
 	//res.Owner_name = args[2]														//change the user
 
-	jsonAsBytes, _ := json.Marshal(res)
-	err = stub.PutState(res.Survey_no, jsonAsBytes)								//rewrite the prop with id as key
-	if err != nil {
-		return nil, err
-	}
+	//jsonAsBytes, _ := json.Marshal(res)
+	//err = stub.PutState(res.Survey_no, jsonAsBytes)								//rewrite the prop with id as key
+	//if err != nil {
+	//	return nil, err
+	//}
 			
 	fmt.Println("- end transfer")
 	return nil, nil
