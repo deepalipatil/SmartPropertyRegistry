@@ -54,7 +54,7 @@ $(document).ready(function() {
 	});
    
    
-   	$('#transfer').click(function(){
+   	/* $('#transfer').click(function(){
 		console.log('transferring property');
    
 		var obj = 	{
@@ -65,7 +65,7 @@ $(document).ready(function() {
 						location: $('select[name="loc"]').val(),
 						area: $('select[name="areaDet"]').val(),
                         
-                        */
+                        
                         
                         
                         type: 'transfer',
@@ -85,7 +85,7 @@ $(document).ready(function() {
 			alert("You haven't inserted all required data!");
 		}
 		return false;
-	});
+	}); */
 	
 });
 	

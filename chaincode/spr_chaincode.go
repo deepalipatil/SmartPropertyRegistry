@@ -81,9 +81,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	if err != nil {
 		return nil, err
 	}
-	
-	
-	
+		
 	return nil, nil
 }
 
@@ -108,8 +106,6 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return t.Write(stub, args)
 	} else if function == "register" {									//create a new marble
 		return t.Register(stub, args)
-	} else if function == "transfer" {									//create a new trade order
-		return t.transfer(stub, args)
 	} 
 	fmt.Println("invoke did not find func: " + function)					//error
 
@@ -252,6 +248,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	fmt.Println("- end register")
 	return nil, nil
 }
+
 
 func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var err error
