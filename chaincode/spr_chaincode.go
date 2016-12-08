@@ -108,7 +108,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "register" {									//create a new marble
 		return t.Register(stub, args)
 	} else if function == "transfer" {									//create a new trade order
-		return t.transfer(stub, args)
+		//return t.transfer(stub, args)
 	} 
 	fmt.Println("invoke did not find func: " + function)					//error
 
