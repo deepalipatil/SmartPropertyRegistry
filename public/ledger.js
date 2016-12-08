@@ -1,3 +1,4 @@
+
 'use strict';
 let prevFiftyBlocks = []; //Previous 125 block times (when committed to blockchain)
 let timeData = [];
@@ -68,9 +69,9 @@ console.log('Loaded');
 						payload=blk.payload;
 						payload=window.atob(payload);
 						data=payload.split("\n");
-						console.log('Hi'+data[6]);
+						console.log('Hi'+timeConverter(blockTime));
 						if(data[6]!=undefined){
-						
+						var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
 						$("#d").append('<tr><td><strong>'+(blockNum-i)+'</strong></td><td><strong>'+temp+'</strong></td><td><strong>'+timeConverter(blockTime)+'</strong></td></tr>');
 						}
 						}
@@ -85,13 +86,7 @@ console.log('Loaded');
 				if(typeof blk != 'undefined'){
                 transData.push(blk.length);
 				}
-				
-                transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
-
-				
-                
-				
-            }
+		    }
             else if(blockNum - i == 0) //If genesis block..
             {
 
@@ -112,8 +107,6 @@ console.log('Loaded');
                     },
                     async: false
                 });
-
-               // $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
             }
             else
             {

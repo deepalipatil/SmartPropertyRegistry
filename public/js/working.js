@@ -34,7 +34,6 @@ $(document).ready(function() {
     connect_to_server(); 
     console.log('in ready');
 	
-	
 	// =================================================================================
 	// jQuery UI Events
 	// =================================================================================
@@ -71,6 +70,9 @@ $(document).ready(function() {
 			
             console.log('creating property, sending', obj);
 			ws.send(JSON.stringify(obj));
+		}
+		else{
+			alert("You haven't inserted all required data!");
 		}
 		return false;
 	});
@@ -183,6 +185,40 @@ $(document).ready(function() {
     
 
    
+   
+   	$('#transfer').click(function(){
+		console.log('transferring property');
+   
+		var obj = 	{
+						/*type: 'create',
+						name: $('input[name="owner"]').val().replace(' ', ''),
+						adhaar_no: $('select[name="acnumber"]').val(),
+						survey_no: $('select[name="surveyNo"]').val(),
+						location: $('select[name="loc"]').val(),
+						area: $('select[name="areaDet"]').val(),
+                        
+                        */
+                        
+                        
+                        type: 'transfer',
+						name: "deepali",
+						survey_no: "sr-111",
+						new_name: "Sumanth",
+                        		v:1
+                        
+					};
+                    console.log(obj.new_name+'*'+obj.name+'*'+obj.survey_no);
+		if(obj.new_name && obj.name && obj.survey_no){
+			
+            console.log('transferring, sending', obj);
+			ws.send(JSON.stringify(obj));
+		}
+		else{
+			alert("You haven't inserted all required data!");
+		}
+		return false;
+	});
+	
 });
 	
 
