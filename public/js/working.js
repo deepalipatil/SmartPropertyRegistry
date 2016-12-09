@@ -49,8 +49,8 @@ $(document).ready(function() {
 
         var obj = {
             type: 'transfer',
-            name: n,
             survey_no: sn,
+            name: n,
             new_name: nn,
             v: 1
 
