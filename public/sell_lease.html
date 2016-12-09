@@ -7,7 +7,7 @@
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/working.js"></script>
+
    <script src="js/blockchain.js"></script>
    <script src="js/funk.js"></script>
    <script src="js/working.js"></script>
@@ -103,7 +103,7 @@
                                 
                                 <div class="form-group form-inline ">
                                 <label  for="surveyNo">Property Survey No <span style="color:red">*</span>:</label> 
-                                <input  id="surveyNo" class="form-control" type="text" name="surveyNo" pattern="([a-zA-Z0-9]/)+[a-zA-Z0-9]" title="survey no should contain aphanumeric characters and /"placeholder="Enter Survey No" required/>
+                                <input  id="surveyNo" class="form-control" type="text" name="surveyNo" pattern="([a-zA-Z0-9]+/)+[a-zA-Z0-9]+" title="survey no should contain aphanumeric characters and /"placeholder="Enter Survey No" required/>
 								</div>
                           
 								<br>
@@ -118,7 +118,7 @@
                                 
 								<br><br>
 								<div class="form-group form-inline " style="padding-left:5%">
-                                <label  for="areaDet">Area Details <span style="color:red">*</span>:</label> 
+                                <label  for="areaDet">Address <span style="color:red">*</span>:</label> 
                                 <textarea id="areaDet" class="form-control" type="text" name="areaDet" placeholder="Enter Area Details" style="font-family:sans-serif"></textarea>
 								</div>
                                 
@@ -127,9 +127,9 @@
                                 
                                 <div class="form-group form-inline radio ">
                                 <label class="radio-inline" for="bp">
-                                <input id="bp"  type="radio" name="ptype" value="" onchange='fun1(this);' required>Built Up Property</label>
+                                <input id="bp"  type="radio" name="ptype" value=""  required>Built Up Property</label>
                                 <label class="radio-inline" for="lp">
-                                <input id="lp"  type="radio"  name="ptype" value="" onchange='fun1(this);' >Land Property</label>
+                                <input id="lp"  type="radio"  name="ptype" value=""  >Land Property</label>
 								</div>
                                 
                                 
@@ -137,7 +137,8 @@
                                 
                                
 								<div class="modal-footer">
-                                		<button class="btn btn-primary btn-block" id="sub" value="Register">Register!</button>                                
+
+                                		<button class="btn btn-block btn-primary" type="submit" id="sub" value="Register">Register</button>                                
 							</div>
                             </form>
                              </div>

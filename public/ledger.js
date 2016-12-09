@@ -44,7 +44,7 @@ console.log('Loaded');
         async: false
     });
 	
-	for(let i = 1; i < 126; i++)
+	for(let i = 0; i < 126; i++)
         {
 		
             if(blockNum - i > 0)
@@ -68,7 +68,7 @@ console.log('Loaded');
 						payload=blk.payload;
 						payload=window.atob(payload);
 						data=payload.split("\n");
-						console.log('Hi'+timeConverter(blockTime));
+						console.log('Hi'+data[6]+' '+data[3]);
 						if(data[6]!=undefined){
 						var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
 						$("#d").append('<tr><td><strong>'+(blockNum-i)+'</strong></td><td><strong>'+temp+'</strong></td><td><strong>'+timeConverter(blockTime)+'</strong></td></tr>');
