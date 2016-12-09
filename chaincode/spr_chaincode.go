@@ -40,6 +40,7 @@ type Property struct{
 	Survey_no string `json:"survey_no"`
 	Location string `json:"location"`
 	Area string `json:"area"`
+	Is_Owner bool `json:"is_owner"`
 }
 
 // ============================================================================================================================
