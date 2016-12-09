@@ -1,123 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head >
-<script src="configurations.js"></script>
-<script src="js/blockchain.js"></script>
-   <script src="js/funk.js"></script>
 
-<script type="text/javascript" src="js/working.js"></script>
+<head>
+    <script src="configurations.js"></script>
+    <script src="js/blockchain.js"></script>
+    <script src="js/funk.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+    <script type="text/javascript" src="js/working.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            align: center-left;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-	align: center-left;
-	}
+</head>
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
-</style>
-
-  </head>
 <body class="Container" style="background: url(bg3.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;"> 
-	<br><br><br>
-	<div class="container" style="background-image:url('temp1.png'); position:realtive; background-repeat: no-repeat; background-size:cover" >
-			<h1 style="color: black; text-align: center-left; ; font-family:monospace; font-size:350%" ><strong>SMART PROPERTY REGISTRY</strong></h1>
-				<h3 style="text-align: center ; font-size:20px; font-family:Times New Roman"><strong> -Blockchain enabled solution for property registry</strong></h3>
-		</div>
-		
-			<div align="center">
-		<a href="index.html" style="color:black ;font-size:30px; font-family:Times New Roman"><strong>Home</strong></a>
-		</div>
-	<br>
-	
-		<br>
-<table align="center" style="border:20px; color:black">
-<tr>
-<td>
-<div class="dropdown" align="center">
-  <button class="dropbtn" onmouseover='fun()' onh='fun()'>Transfer From</button>
-  <div class="dropdown-content" style="left:0;">
-    <a href="#" id="one" onclick='fun2(this.id)'></a>
-    <a href="#" id="two" onclick='fun2(this.id)'></a>
-    <a href="#" id="three" onclick='fun2(this.id)'></a>
-	<a href="#" id="four" onclick='fun2(this.id)'></a>
-	<a href="#" id="five" onclick='fun2(this.id)'></a>
-  </div>
-</div>
-</td>
-<td width="60%">
-<span id="owner"/>
-</td>
-<td>
-<div class="dropdown" align="center">
-  <button class="dropbtn">Transfer To</button>
-  <div class="dropdown-content">
-    <a href="#" id="one1"onclick='fun3(this.id)'></a>
-    <a href="#" id="two2"onclick='fun3(this.id)'></a>
-    <a href="#" id="three3"onclick='fun3(this.id)'></a>
-	<a href="#" id="four4"onclick='fun3(this.id)'></a>
-	<a href="#" id="five5"onclick='fun3(this.id)'></a>
-  </div>
-</div>
-</td>
-<td>
- <span id="buyer"/>
-</td>
-</tr>
-<tr height="50%"/>
+  background-size: cover;">
+    <br><br><br>
+    <div class="container" style="background-image:url('temp1.png'); position:realtive; background-repeat: no-repeat; background-size:cover">
+        <h1 style="color: black; text-align: center-left; ; font-family:monospace; font-size:350%"><strong>SMART PROPERTY REGISTRY</strong></h1>
+        <h3 style="text-align: center ; font-size:20px; font-family:Times New Roman"><strong> -Blockchain enabled solution for property registry</strong></h3>
+    </div>
 
-<td>
-</td>
+    <div align="center">
+        <a href="index.html" style="color:black ;font-size:30px; font-family:Times New Roman"><strong>Home</strong></a>
+    </div>
+    <br>
+
+    <br>
+    <table align="center" style="border:20px; color:black">
+        <tr>
+            <td>
+                <div class="dropdown" align="center">
+                    <button class="dropbtn" onmouseover='fun()' onh='fun()'>Transfer From</button>
+                    <div class="dropdown-content" style="left:0;">
+                        <a href="#" id="one" onclick='fun2(this.id)'></a>
+                        <a href="#" id="two" onclick='fun2(this.id)'></a>
+                        <a href="#" id="three" onclick='fun2(this.id)'></a>
+                        <a href="#" id="four" onclick='fun2(this.id)'></a>
+                        <a href="#" id="five" onclick='fun2(this.id)'></a>
+                    </div>
+                </div>
+            </td>
+            <td width="60%">
+                <span id="owner" />
+            </td>
+            <td>
+                <div class="dropdown" align="center">
+                    <button class="dropbtn">Transfer To</button>
+                    <div class="dropdown-content">
+                        <a href="#" id="one1" onclick='fun3(this.id)'></a>
+                        <a href="#" id="two2" onclick='fun3(this.id)'></a>
+                        <a href="#" id="three3" onclick='fun3(this.id)'></a>
+                        <a href="#" id="four4" onclick='fun3(this.id)'></a>
+                        <a href="#" id="five5" onclick='fun3(this.id)'></a>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <span id="buyer" />
+            </td>
+        </tr>
+        <tr height="50%" />
+
+        <td>
+        </td>
 
 
-<td align="center">
-<button id="transfer" type="button" class="btn btn-primary btn-lg" onclick="fun4()" align="center">Transfer Property</button>
-</td>
-</tr>
-</table>		
+        <td align="center">
+            <button id="tran" type="button" class="btn btn-primary btn-lg" onclick="fun4()" align="center">Transfer Property</button>
+            <button class="btn btn-block btn-primary" type="submit" id="transfer" value="Register">transferr</button>
+        </td>
+        </tr>
+    </table>
 </body>
+
 </html>
