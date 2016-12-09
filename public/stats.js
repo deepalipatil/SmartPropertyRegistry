@@ -52,6 +52,7 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
+
         url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
 			console.log(d);

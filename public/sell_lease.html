@@ -7,12 +7,12 @@
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/working.js"></script>
+
    <script src="js/blockchain.js"></script>
    <script src="js/funk.js"></script>
-   <script src="users.js"></script>
+   <script src="js/working.js"></script>
    
-   <script>
+   <!--<script>
   
   function validatedata()
   {
@@ -37,7 +37,7 @@
   
   }
   </script>
-  
+  -->
    
   
 </head>
@@ -103,7 +103,7 @@
                                 
                                 <div class="form-group form-inline ">
                                 <label  for="surveyNo">Property Survey No <span style="color:red">*</span>:</label> 
-                                <input  id="surveyNo" class="form-control" type="text" name="surveyNo" pattern="([a-zA-Z0-9]/)+[a-zA-Z0-9]" title="survey no should contain aphanumeric characters and /"placeholder="Enter Survey No" required/>
+                                <input  id="surveyNo" class="form-control" type="text" name="surveyNo" pattern="([a-zA-Z0-9]+/)+[a-zA-Z0-9]+" title="survey no should contain aphanumeric characters and /"placeholder="Enter Survey No" required/>
 								</div>
                           
 								<br>
@@ -137,6 +137,7 @@
                                 
                                
 								<div class="modal-footer">
+
                                 		<button class="btn btn-block btn-primary" type="submit" id="sub" value="Register">Register</button>                                
 							</div>
                             </form>

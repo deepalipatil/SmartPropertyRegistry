@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"strconv"
 	"encoding/json"
-
+	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
@@ -40,6 +40,7 @@ type Property struct{
 	Survey_no string `json:"survey_no"`
 	Location string `json:"location"`
 	Area string `json:"area"`
+	Is_Owner bool `json:"is_owner"`
 }
 
 // ============================================================================================================================
@@ -81,8 +82,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	if err != nil {
 		return nil, err
 	}
-	
-	
+		
 	return nil, nil
 }
 
@@ -107,6 +107,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return t.Write(stub, args)
 	} else if function == "register" {									//create a new marble
 		return t.Register(stub, args)
+	} else if function == "transfer" {									//create a new marble
+		return t.transfer(stub, args)
 	} 
 	fmt.Println("invoke did not find func: " + function)					//error
 
@@ -212,7 +214,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	//}
 
 	//check if marble already exists
-	propertyAsBytes, err := stub.GetState(survey_no)
+	propertyAsBytes, err := stub.GetState(name)
 	if err != nil {
 		return nil, errors.New("Failed to get property")
 	}
@@ -250,6 +252,10 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	return nil, nil
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var err error
 	
@@ -259,6 +265,7 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	if len(args) < 3 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 3")
 	}
+<<<<<<< HEAD
 	
 	//get the open trade struct
 	propertyAsBytes, err := stub.GetState(args[1])
@@ -277,9 +284,57 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	//	return nil, err
 	//}
 			
+=======
+
+	name := strings.TrimSpace(args[0])
+	new_name := strings.TrimSpace(args[2])
+	survey_no := strings.TrimSpace(args[1])
+
+	propertyAsBytes, err := stub.GetState(name)
+	if err != nil {
+		return nil, errors.New("Failed to get property")
+	}
+	
+	res := Property{}
+	json.Unmarshal(propertyAsBytes, &res)
+
+	if strings.ToLower(strings.TrimSpace(res.Survey_no))==strings.ToLower(strings.TrimSpace(survey_no)) {
+		fmt.Println("This property arleady exists: " + survey_no)
+		fmt.Println(res);
+		return nil, errors.New("This property arleady exists")				//all stop a property by this name exists
+	}
+			
+	res.Owner_Name = new_name														//change the user
+
+	//build the property json string manually
+	str := `{"name": "` + res.Owner_Name + `", "adhaar_no": "` + res.Aadhar_no + `", "survey_no": ` + res.Survey_no + `, "location": "` + res.Location +  `, "area": "` + res.Area + `"}`
+	err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
+	if err != nil {
+		return nil, err
+	}
+		
+	//get the property index
+	propertyAsBytes, err = stub.GetState(propertyIndexStr)
+	if err != nil {
+		return nil, errors.New("Failed to get property index")
+	}
+	var propertyIndex []string
+	json.Unmarshal(propertyAsBytes, &propertyIndex)							//un stringify it aka JSON.parse()
+	
+	//append
+	propertyIndex = append(propertyIndex, name)									//add marble name to index list
+	fmt.Println("! property index: ", propertyIndex)
+	jsonAsBytes, _ := json.Marshal(propertyIndex)
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)						//store name of marble
+
+
+>>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 	fmt.Println("- end transfer")
 	return nil, nil
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
