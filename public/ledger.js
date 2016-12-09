@@ -70,7 +70,7 @@ console.log('Loaded');
 						data=payload.split("\n");
 						console.log('Hi'+data[6]+' '+data[3]);
 						if(data[6]!=undefined){
-						var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
+						var temp= "<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Owner Name: "+data[3]+" <br>Adhar No: "+data[4]+" <br>Survey No: "+data[5]+" <br>Location: "+data[6]+"<br>Address: "+data[7]+"</span>";
 						$("#d").append('<tr><td><strong>'+(blockNum-i)+'</strong></td><td><strong>'+temp+'</strong></td><td><strong>'+timeConverter(blockTime)+'</strong></td></tr>');
 						}
 						}

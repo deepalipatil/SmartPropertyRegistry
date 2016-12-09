@@ -4,7 +4,7 @@ config.participants = {};
 
 config.participants[0]="POOJA";
 config.participants[1]="SUMANTH";
-config.participants[2]="SHRINIWAS";
+config.participants[2]="SHRINIVAS";
 config.participants[3]="MONIKA";
 config.participants[4]="DEEPALI";
 

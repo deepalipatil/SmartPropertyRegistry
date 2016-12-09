@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head >
-<script src="configurations.js"></script>
-<script type="text/javascript" src="js/working.js"></script>
 
-   <script src="js/funk.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+<script src="configurations.js"></script>
+<script type="text/javascript" src="js/working.js"></script>
+
+   <script src="js/funk.js"></script>    
     <style>
 .dropbtn {
     background-color: #4CAF50;
@@ -73,26 +73,26 @@
 	<br>
 	
 		<br>
-<table align="center" style="border:20px; color:black">
-<tr>
-<td>
-<div class="dropdown" align="center">
-  <button class="dropbtn" onmouseover='fun()' onh='fun()'>Transfer From</button>
-  <div class="dropdown-content" style="left:0;">
-    <a href="#" id="one" onclick='fun2(this.id)'></a>
-    <a href="#" id="two" onclick='fun2(this.id)'></a>
-    <a href="#" id="three" onclick='fun2(this.id)'></a>
-	<a href="#" id="four" onclick='fun2(this.id)'></a>
-	<a href="#" id="five" onclick='fun2(this.id)'></a>
-  </div>
-</div>
-</td>
-<td width="60%">
-<span id="owner"/>
-</td>
-<td>
-<div class="dropdown" align="center">
-  <button class="dropbtn">Transfer To</button>
+        
+<div class="row">
+    <div class="col-sm-4" style="padding-left:18%">
+
+        <input  id="sno" type="text" placeholder="Enter Survey No">
+    </div>
+   
+    <div class="col-sm-4" >
+        
+        <h2 align="center">Property details</h2>
+     
+        <div class="container" id="ppp" style="overflow:auto; height:100px; width:250px">
+              <span hidden>No Data</span>
+        </div>
+    </div>
+
+    
+    <div class="col-sm-4" style="padding-left:5%%   ">
+        <div class="dropdown" >
+  <button class="dropbtn" onclick="fun1(this.id)">Transfer To</button>
   <div class="dropdown-content">
     <a href="#" id="one1"onclick='fun3(this.id)'></a>
     <a href="#" id="two2"onclick='fun3(this.id)'></a>
@@ -101,21 +101,13 @@
 	<a href="#" id="five5"onclick='fun3(this.id)'></a>
   </div>
 </div>
-</td>
-<td>
- <span id="buyer"/>
-</td>
-</tr>
-<tr height="50%"/>
-
-<td>
-</td>
-
-
-<td align="center">
-<button type="button" class="btn btn-primary btn-lg" onclick="fun4()" align="center">Transfer Property</button>
-</td>
-</tr>
-</table>		
+    </div>
+    </div>
+    <br>
+    
+    <center>
+<button id="transfer" type="button" class="btn btn-primary btn-lg" onclick="fun4()" align="center">Transfer Property</button>
+		</center>
+		
 </body>
 </html>
