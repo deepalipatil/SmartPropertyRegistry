@@ -252,10 +252,6 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	return nil, nil
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var err error
 	
@@ -265,26 +261,6 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	if len(args) < 3 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 3")
 	}
-<<<<<<< HEAD
-	
-	//get the open trade struct
-	propertyAsBytes, err := stub.GetState(args[1])
-	if err != nil {
-		return nil, errors.New("Failed to get prop")
-	}
-	
-	res := Property{}
-	json.Unmarshal(propertyAsBytes, &res)										//look for the prop
-			
-	//res.Owner_name = args[2]														//change the user
-
-	//jsonAsBytes, _ := json.Marshal(res)
-	//err = stub.PutState(res.Survey_no, jsonAsBytes)								//rewrite the prop with id as key
-	//if err != nil {
-	//	return nil, err
-	//}
-			
-=======
 
 	name := strings.TrimSpace(args[0])
 	new_name := strings.TrimSpace(args[2])
@@ -327,14 +303,7 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	jsonAsBytes, _ := json.Marshal(propertyIndex)
 	err = stub.PutState(propertyIndexStr, jsonAsBytes)						//store name of marble
 
-
->>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 	fmt.Println("- end transfer")
 	return nil, nil
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942

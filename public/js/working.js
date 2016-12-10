@@ -26,6 +26,8 @@ let transSpans;
 let data;
 let date,date1;
 
+let senderName;
+let buyerName;
 
 // =================================================================================
 // On Load
@@ -58,23 +60,37 @@ $(document).ready(function() {
         if (obj.area && obj.name && obj.location && obj.adhaar_no && obj.survey_no) {
 
             console.log('creating property, sending', obj);
-<<<<<<< HEAD
 			ws.send(JSON.stringify(obj));
-		}
-		else{
-			alert("You haven't inserted all required data!");
-		}
-		return false;
-	});
+            alert("Congrats! " + name + " Your property has been registered!");
+        } else {
+            alert("You haven't inserted all required data!");
+        }
+        return false;
+    });
    
    
-    $('#sno').keypress(function (e) {
-    if (e.which == '13') {
+    $('#ow').change(function (e) {
+    
+        senderName=this.options[ this.selectedIndex ].innerText;
+            console.log(senderName);
+        
        $("#ppp").find("div").remove();
-  
+           var temp=""; 
         console.log('ANCHOR');
-        var name= this.value;
+        var name= senderName;
          $.ajax({
+                 
+        beforeSend: function(){
+            $("#r1").css('display', 'none');
+            $("#ldr").css('display', 'block');
+            console.log('before send');
+        
+        },
+        complete: function(){
+            $("#ldr").css('display', 'none');
+            $("#r1").css('display', 'block');
+        
+        },
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -116,7 +132,7 @@ $(document).ready(function() {
 						payload=blk.payload;
 						payload=window.atob(payload);   
 						data=payload.split("\n");
-                        var n1=data[5].toLowerCase().trim();
+                        var n1=data[3].toLowerCase().trim();
                         var n2=name.toLowerCase().trim();
                         var n = n1.localeCompare(n2);
                         console.log(n1 +' data '+ n2 + ' compare '+ n);
@@ -124,8 +140,10 @@ $(document).ready(function() {
                                 //var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
                                 console.log('in if  '+data[3]);
                                 //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')
-                                $("#ppp").append('<div class="checkbox"><label><a  value="">'+data[3]+' '+data[4]+'</a></div>')
-                                break;
+                                
+                                temp+='<div class="radio"><label><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>';
+                                
+                               
                                // $("#abc").load(data[4])
                                 //$("ul").add('<li class="list-group-item" style="display:block"><label><input type="checkbox" value=""   >'+data[3]+'-'+data[4]+'</label></li>');
                             }else{
@@ -178,84 +196,67 @@ $(document).ready(function() {
                 break;
             }
         }
-    }
-	});
-
+        $("#ppp").append(temp);
         
-   	 $('#transfer').click(function(){
-		console.log('transferring property');
-   
-		var obj = 	{
-						/*type: 'create',
-						name: $('input[name="owner"]').val().replace(' ', ''),
-						adhaar_no: $('select[name="acnumber"]').val(),
-						survey_no: $('select[name="surveyNo"]').val(),
-						location: $('select[name="loc"]').val(),
-						area: $('select[name="areaDet"]').val(),
-                        
-                        
-                        */
-                        
-                        type: 'transfer',
-						name: "deepali",
-						survey_no: "sr-111",
-						new_name: "Sumanth",
-                        		v:1
-                        
-					};
-                    console.log(obj.new_name+'*'+obj.name+'*'+obj.survey_no);
-		if(obj.new_name && obj.name && obj.survey_no){
-			
-            console.log('transferring, sending', obj);
-			ws.send(JSON.stringify(obj));
-		}
-		else{
-			alert("You haven't inserted all required data!");
-		}
-		return false;
+        
+        
+    
 	});
-
-    $("checkbox").click(function() {
-        if(this.checked) {
-            alert(this.value);
-        }
-    });
-	
-=======
-            ws.send(JSON.stringify(obj));
-            alert("Congrats! " + name + " Your property has been registered!");
-        } else {
-            alert("You haven't inserted all required data!");
-        }
-        return false;
+    
+    $('#buyer').change(function (e) {
+        buyerName=this.options[ this.selectedIndex ].innerText;
+        if(buyerName!="Buyer Name")
+            $("#transfer").prop('disabled', false);
     });
 
+/* 
+    $(":checkbox").change(function() {
+        
+        
+
+    }); */
+    $('#ppp').on('change', '.radio', function() {
+    // do something
+    
+        if(!this.checked) {
+                        console.log('oprion');
+                        
+                        $("#buyer").css('display', 'block');
+        }else{
+            alert('else');
+        }
+    });
 
     $('#transfer').click(function() {
-        var n = "deepali".trim().toLowerCase();
-        var sn = "A1234";
-        var nn = "sumantH".trim().toLowerCase();
-        console.log('transferring property', sn);
-
+        
+        
+        var sn = $('input[name=propertyr]:checked').val();
+        console.log(sn);
+        //console.log('transferring property '+sn+' from '+senderName+' to '+buyerName);
+        
         var obj = {
             type: 'transfer',
-            name: n,
+            name: senderName,
             survey_no: sn,
-            new_name: nn,
+            new_name: buyerName,
             v: 1
 
         };
-        console.log(obj.name + '*' + obj.survey_no + '*' + obj.new_name);
+        //console.log(obj.name + '*' + obj.survey_no + '*' + obj.new_name);
         if (obj.new_name && obj.name && obj.survey_no) {
-            console.log('transferring, sending', obj);
-            ws.send(JSON.stringify(obj));
+           var r=confirm("Confirm to transfer property "+sn+" from "+senderName+" to "+buyerName);
+            if(r==true){
+                   // console.log('transferring, sending', obj);
+          //          ws.send(JSON.stringify(obj));
+                    alert("Property Transferred Sucessfully!!!")
+            }
+            
         } else {
             alert("You haven't inserted all required data!");
         }
         return false;
     });
 
->>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 });
 
 

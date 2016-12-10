@@ -10,32 +10,6 @@ module.exports.setup = function(sdk, cc) {
     chaincode = cc;
 };
 
-<<<<<<< HEAD
-module.exports.process_msg = function(ws, data){
-	if(data.v === 1){						//only look at messages for registration
-		if(data.type == 'create'){
-			console.log('its a create!');
-			if(data.name && data.adhaar_no && data.survey_no && data.location && data.area){
-				chaincode.invoke.register([data.name, data.adhaar_no, data.survey_no, data.location, data.area], cb_invoked);	//create a new property
-			}
-		}
-		else if(data.type == 'transfer'){
-			console.log('its a transfer!');
-			if(data.name && data.survey_no && data.new_name){
-				console.log('invoking transfer!');
-				chaincode.invoke.transfer([data.name, data.survey_no, data.new_name], cb_invoked);	//create a new property
-			}
-		}
-		else if(data.type == 'get'){
-			console.log('get property msg');
-			chaincode.query.read(['_propertyindex'], cb_got_index);
-		}
-		else if(data.type == 'chainstats'){
-			console.log('chainstats msg');
-			ibc.chain_stats(cb_chainstats);
-		}
-	}
-=======
 module.exports.process_msg = function(ws, data) {
     if (data.v === 1) { //only look at messages for registration
         if (data.type == 'create') {
@@ -57,7 +31,6 @@ module.exports.process_msg = function(ws, data) {
             ibc.chain_stats(cb_chainstats);
         }
     }
->>>>>>> 2c8c981b20699f3edaebfbce2d0b8468fdbe2942
 
     //got the property index, lets get each property
     function cb_got_index(e, index) {
