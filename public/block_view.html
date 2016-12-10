@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>Blockchain Statistics</title>
-		<link rel="stylesheet" type="text/css" href="main.css" ></link>
+		<link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="main.css" ></link>
 		<link rel="stylesheet" type="text/css" href="stats.css" ></link>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
@@ -22,13 +23,16 @@
 	<body class="Container"  style="background-image:url('bg3.png');background-repeat: no-repeat ;  position:relative; background-size:cover  "> 
 	<br><br><br>
 	<div class="well container" style="background-image:url('temp1.png'); position:realtive; background-repeat: no-repeat; background-size:cover" >
-			<h1 style="color: black; text-align: center; font-family:monospace; font-size: 300%" ><strong>SMART PROPERTY REGISTRY</strong></h1>
+			<h1 style="color: black; text-align: left; font-family:monospace; font-size: 300%" ><strong>SMART PROPERTY REGISTRY</strong></h1>
 				<dd style="text-align: center; font-size: 150%">  Blockchain enabled solution for property registry</dd>
 		</div>
 	<div align="center">
 		<a href="index.html" style="color:black ;font-size:30px; font-family:Times New Roman"><strong>Home</strong></a>
 		</div>
-<h1 class="bigTxt" style="padding-top:25px; font-size=125%" align="center"><strong style="color:black">Live Stats</strong></h1>	
+		<table id="mainTbl" style="width:100%" >
+		<tr>
+		<h1 class="bigTxt" style="padding-top:25px; font-size=125%" align="center"><strong style="color:black">Live Stats</strong></h1>	
+		</tr>
 		<table class="table table-bordered" align="center">
     <thead>
       <tr>
@@ -40,16 +44,16 @@
   </table>		
 		
 			<br>
-			<table class="table" style="width:100%" >
+			
 			<tr>
 				<td class="smlBrk"></td>
 				<td colspan="4" class="bigTxt" style="overflow:hidden">
-					<span style="position:relative; left:0px; display:inline-block; width:400px;"><strong style="color:black">Blockchain Explorer</strong></span>
-					<input id='goTo' value="Block..." style="position:relative; display:inline-block; left:100%; margin-left:0px; color: rgb(0, 100, 141); font-family: arial,helvetica,sans-serif; padding: 2.5px; width:110px; font-size:0.8em; border:0;" onfocus="this.select()" type="text" />
-					<img src="search.svg" id="srchBtn" onclick="toggleSearch(this)" style="position:relative; background-color:#FFF; z-index:99; float: right; margin-top:3px; padding: 1.5px; cursor: pointer;" width="20" />
+				<center>
+					<span style="position:relative; left:0px; display:inline-block; width:400px;font-size:125%;color:black"><strong>Blockchain Explorer</strong></span></center>
 					<br />
 					<span id="srchLine" style="display:inline-block; width: 135px; height: 2px; background-color:#00648D; position:relative; left:100%; margin-left:1px"></span>
 				</td>
+				<br>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>

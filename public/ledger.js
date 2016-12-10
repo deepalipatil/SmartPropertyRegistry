@@ -23,6 +23,7 @@ let payload;
 let transSpans;
 let data;
 let date,date1;
+let arr=[];
 $(document).ready(function(){
 console.log('Loaded');
  var temp;
@@ -79,6 +80,8 @@ console.log('Loaded');
 						 temp= "<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Owner Name: "+data[3]+" <br>Adhar No: "+data[4]+" <br>Survey No: "+data[5]+" <br>Location: "+data[6]+"<br>Address: "+data[7]+"</span>";
 						
 						}
+                        var row=(blockNum-i)+"$"+temp+"$"+timeConverter(blockTime);
+						arr.push(row);
                         $("#d").append('<tr><td><strong>'+(blockNum-i)+'</strong></td><td style="text-align:left; padding-left:10%"><strong>'+temp+'</strong></td><td><strong>'+timeConverter(blockTime)+'</strong></td></tr>');
 						}
                     },
@@ -143,4 +146,28 @@ function pad(value) { //Used for time so that, 12:04 isn't show as 12:4.
     } else {
         return value;
     }
+}
+
+function mySearch(keyword)
+{
+
+	$("#d").html("");
+    //alert(keyword)
+	var blockno;
+	var desc="";
+	var time;
+	for(let i=0;i<arr.length;i++)
+	{
+		if(arr[i].toLowerCase().includes(keyword.toLowerCase()))
+		{
+			var splitted=arr[i].split("$");
+			blockno=splitted[0];
+			time=splitted[2];
+		
+
+			$("#d").append('<tr><td><strong>'+blockno+'</strong></td><td><strong>'+splitted[1]+'</strong></td><td><strong>'+time+'</strong></td></tr>');
+		
+									
+		}
+	}
 }

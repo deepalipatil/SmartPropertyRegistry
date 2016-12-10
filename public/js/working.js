@@ -80,17 +80,7 @@ $(document).ready(function() {
         var name= senderName;
          $.ajax({
                  
-        beforeSend: function(){
-            $("#r1").css('display', 'none');
-            $("#ldr").css('display', 'block');
-            console.log('before send');
         
-        },
-        complete: function(){
-            $("#ldr").css('display', 'none');
-            $("#r1").css('display', 'block');
-        
-        },
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -106,7 +96,7 @@ $(document).ready(function() {
         error: function(e){
             console.log(e);
         },
-        async: true
+        async: false
     });
 	
 	for(let i = 0; i < chainHeight; i++){
@@ -116,6 +106,23 @@ $(document).ready(function() {
                 
 				
                 $.ajax({
+                    
+                    beforeSend: function(){
+                    $("#r1").css('display', 'none');
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                        $("#r1").css('display', 'block');
+        
+                    },
+                    
+                    
+                    
+                    
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
@@ -141,7 +148,7 @@ $(document).ready(function() {
                                 console.log('in if  '+data[3]);
                                 //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')
                                 
-                                temp+='<div class="radio"><label><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>';
+                                $("#ppp").append('<div class="radio"><label><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>');
                                 
                                
                                // $("#abc").load(data[4])
@@ -155,7 +162,7 @@ $(document).ready(function() {
                     error: function(e){
                         console.log(e);
                     },
-                    async: false
+                    async: true
                 });
 
                 prevFiftyBlocks.push(blockTime);
@@ -196,7 +203,7 @@ $(document).ready(function() {
                 break;
             }
         }
-        $("#ppp").append(temp);
+        
         
         
         
@@ -246,7 +253,7 @@ $(document).ready(function() {
         if (obj.new_name && obj.name && obj.survey_no) {
            var r=confirm("Confirm to transfer property "+sn+" from "+senderName+" to "+buyerName);
             if(r==true){
-                   // console.log('transferring, sending', obj);
+                    console.log('transferring, sending', obj);
                     ws.send(JSON.stringify(obj));
                     alert("Property Transferred Sucessfully!!!")
             }
@@ -254,6 +261,7 @@ $(document).ready(function() {
         } else {
             alert("You haven't inserted all required data!");
         }
+        location.reload();
         return false;
     });
 

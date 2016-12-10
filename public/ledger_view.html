@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <title>Ledger view</title>
 <link rel="shortcut icon" type="image/x-icon" href="imgs/favicon.ico" />	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
@@ -10,8 +11,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="ledger.js"></script>
 
+     <style>
+	<!--	th{
+			text-align: center;
+		}
+		.table-bordered td, .table-bordered th{
+		border-color: black !important;
+		}
+        -->
+		#myInput {
+        background-image: url('imgs/search.png'); /* Add a search icon to input */
+        background-position: 10px 6px; /* Position the search icon */
+        background-repeat: no-repeat; /* Do not repeat the icon image */
+        width: 100%; /* Full-width */
+        font-size: 16px; /* Increase font-size */
+        padding: 12px 20px 12px 40px; /* Add some padding */
+        border: 1px solid black; /* Add a grey border */
+        margin-bottom: 12px; /* Add some space below the input */
+        background-color:rgba(0, 0, 0, 0);
+    } 
+	</style>
 
-	<style>
 		<!-- th{
 			text-align: center;
 		}
@@ -61,9 +81,11 @@
 		</div>
 		<div class="container">
 		<h2>Ledger View...</h2>
-	<div id="table-wrapper">
+        <input type="text" id="myInput" onkeyup="mySearch(this.value)" placeholder="Search...">
+    <div id="table-wrapper">
   <div id="table-scroll">
     <div class="table-responsive">
+     
   <table class="table table-bordered table-hover" style="text-align: center; border-top-color:black">
     <thead style="text-align: center; color:black; font-family:Times New Roman; font-size:20px">
       <tr>

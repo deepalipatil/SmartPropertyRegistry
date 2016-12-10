@@ -52,7 +52,6 @@ $(document).ready(function(){
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-
         url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
         success: function(d) {
 			console.log(d);
@@ -110,10 +109,7 @@ $(document).ready(function(){
 		if(typeof block != 'undefined'){
         $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+b.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.length))+'"></input></div>');
 		}
-		else
-		{
-		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+b.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /></div><input type="hidden" class="height" value="'+(351+(39))+'"></input></div>');
-		}
+		
 		console.log('13th'+block.previousBlockHash);
         $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
 
@@ -258,12 +254,12 @@ $(document).ready(function(){
     window.setInterval(updatePage, 10000);
 
     $('#blockHolder').animate({
-        scrollLeft: '+='+$('#blockScroll').width()
+        scrollLeft: 0
     }, 1000, 'easeOutElastic');
 
     if($('#blockScroll').width() > $('#blockHolder').width())
     {
-        $('.arrow_left_box').show();
+        $('.arrow_right_box').show();
     }
 
     $('#fade').hide();
@@ -520,16 +516,16 @@ function scrollBlocksRight(){
 
     $('.arrow_left_box').show();
 
-    if($('#blockHolder').scrollLeft() <= $('#blockScroll').width()-$('#blockHolder').width()-27)
+    if($('#blockHolder').scrollLeft() <= $('#blockScroll').width()-$('#blockHolder').width()-30)
     {
 
-        let toScroll = ($('#blockScroll').width()-$('#blockHolder').width())-$('#blockHolder').scrollLeft();
+        let toScroll = 1000;
 
         $('#blockHolder').animate({
             scrollLeft: '+='+toScroll
         }, 1000, 'easeOutElastic');
-
-        $('.arrow_right_box').hide();
+		 if($('#blockHolder').scrollLeft() >= $('#blockScroll').width()-$('#blockHolder').width()-30)
+				$('.arrow_right_box').hide();
     }
     else
     {
