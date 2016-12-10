@@ -236,6 +236,7 @@ $(document).ready(function() {
         
         var obj = {
             type: 'transfer',
+
             name: senderName,
             survey_no: sn,
             new_name: buyerName,
@@ -247,7 +248,7 @@ $(document).ready(function() {
            var r=confirm("Confirm to transfer property "+sn+" from "+senderName+" to "+buyerName);
             if(r==true){
                    // console.log('transferring, sending', obj);
-          //          ws.send(JSON.stringify(obj));
+                    ws.send(JSON.stringify(obj));
                     alert("Property Transferred Sucessfully!!!")
             }
             

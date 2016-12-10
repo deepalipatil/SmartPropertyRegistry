@@ -262,9 +262,9 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 		return nil, errors.New("Incorrect number of arguments. Expecting 3")
 	}
 
-	name := strings.TrimSpace(args[0])
+	name := strings.TrimSpace(args[1])
 	new_name := strings.TrimSpace(args[2])
-	survey_no := strings.TrimSpace(args[1])
+	survey_no := strings.TrimSpace(args[0])
 
 	propertyAsBytes, err := stub.GetState(name)
 	if err != nil {
