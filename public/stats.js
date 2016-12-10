@@ -40,14 +40,26 @@ $(document).ready(function(){
 
     let startFuncTime = Date.now() / 1000;
 
-    $('#fade').hide();
-    $('#loader').hide();
+    
     $('.arrow_right_box').hide();
     $('.arrow_left_box').hide();
 
     let block;
     let lastBlockHash;
     $.ajax({
+        
+                beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                },
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -74,6 +86,21 @@ $(document).ready(function(){
     $('#blockScroll').css('width', ((chainHeight)*85)-10);
 
     $.ajax({
+        
+        
+         beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                },
+                
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -110,16 +137,16 @@ $(document).ready(function(){
         $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+b.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.length))+'"></input></div>');
 		}
 		
-		console.log('13th'+block.previousBlockHash);
+		//console.log('13th'+block.previousBlockHash);
         $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
-
+        if(typeof block != 'undefined'){
         prev = b.previousBlockHash;
-
         prevFiftyBlocks.push(blockTime);
 
         transData.push(block.length);
         $('#transLast').html(block.length);
-		
+		}
+        
         for(let i = 1; i < 126; i++)
         {
 		
@@ -128,6 +155,21 @@ $(document).ready(function(){
                 
 				
                 $.ajax({
+                    
+                    
+                     beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                },
+                
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
@@ -143,7 +185,7 @@ $(document).ready(function(){
                     error: function(e){
                         console.log(e);
                     },
-                    async: false
+                    async: true
                 });
 
                 prevFiftyBlocks.push(blockTime);
@@ -172,6 +214,19 @@ $(document).ready(function(){
                 let blk;
 
                 $.ajax({
+                     beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                    },
+                    
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
@@ -184,7 +239,7 @@ $(document).ready(function(){
                     error: function(e){
                         console.log(e);
                     },
-                    async: false
+                    async: true
                 });
 
                 $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
@@ -262,8 +317,6 @@ $(document).ready(function(){
         $('.arrow_right_box').show();
     }
 
-    $('#fade').hide();
-    $('#loader').hide();
     $('.statsTbl').show();
 
     scrollWidth = $('#blockScroll').width();
@@ -279,7 +332,20 @@ function updatePage()
     let lastBlockHash;
 
     $.ajax({
-
+        
+         beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                    },
+                    
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -301,6 +367,20 @@ function updatePage()
     if(storeBlock < blockNum) //If latest block number is less than chain height
     {
         $.ajax({
+            
+             beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                    },
+                    
             type: 'GET',
             dataType : 'json',
             contentType: 'application/json',
@@ -425,6 +505,19 @@ function getBlockData(number, el)
     let lastBlockHash;
 
     $.ajax({
+         beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                    },
+                    
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',
@@ -441,6 +534,19 @@ function getBlockData(number, el)
     });
 
     $.ajax({
+         beforeSend: function(){
+                    
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                    
+        
+                    },
+                    
         type: 'GET',
         dataType : 'json',
         contentType: 'application/json',

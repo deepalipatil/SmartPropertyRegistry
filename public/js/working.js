@@ -26,6 +26,7 @@ let transSpans;
 let data;
 let date,date1;
 
+let ownerName;
 let senderName;
 let buyerName;
 
@@ -46,13 +47,14 @@ $(document).ready(function() {
         $('#myModal').modal('hide');
         console.log('form data');
         var data = $('#propertyregisterfrom').serializeArray();
+        console.log(data);
         var obj = {
             type: 'create',
-            name: data[0].value,
-            adhaar_no: data[1].value,
-            survey_no: data[2].value,
-            location: data[3].value,
-            area: data[4].value,
+            name: ownerName,
+            adhaar_no: $("#acnumber").val(),
+            survey_no: data[0].value,
+            location: data[1].value,
+            area: data[2].value,
             v: 1
 
         };
@@ -68,6 +70,10 @@ $(document).ready(function() {
         return false;
     });
    
+    $('#own').change(function (e) {
+        alert('hi');
+       ownerName= this.options[ this.selectedIndex ].innerText;
+    });
    
     $('#ow').change(function (e) {
     
@@ -148,7 +154,7 @@ $(document).ready(function() {
                                 console.log('in if  '+data[3]);
                                 //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')
                                 
-                                $("#ppp").append('<div class="radio"><label><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>');
+                                $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>');
                                 
                                
                                // $("#abc").load(data[4])

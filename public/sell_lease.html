@@ -8,7 +8,7 @@
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="configurations.js"></script>
    <script src="js/blockchain.js"></script>
    <script src="js/funk.js"></script>
    <script src="js/working.js"></script>
@@ -55,17 +55,22 @@
                                             <h5> <strong>Property Owner Details</strong></h5><br>
 
 
-                                            <div class="form-group form-inline ">
-                                                <label for="owner"> Property Owner Name <span style="color:red">*</span>:</label>
-                                                <input id="owner" class="form-control" type="text" name="owner" placeholder="Enter Name" required>
-                                            </div>
+                                            <label for="own">Owner Name: <span style="color:red">*</span>: </label>
+                                            <select class="form-control"  id="own" onclick="fun()" onchange="adharNo(this.options[ this.selectedIndex ].value)">
+                                                <option  value="one" id="dummy" selected>Owner Name</option>
+                                                <option  value="one" id="one" onselect="fun1(this.id)"></option>
+                                                <option  value="two" id="two" onselect="fun1(this.id)"></option>
+                                                <option  value="three" id="three" onselect="fun1(this.id)"></option>
+                                                <option  value="two" id="four" onclick="fun1(this.id)"></option>
+                                                <option  value="three" id="five" onclick="fun1(this.id)"></option>
+                                            </select>
 
                                             <br>
                                             <br>
 
                                             <div class="form-group form-inline ">
-                                                <label for="acnumber"> Aadhar Card Number <span style="color:red">*</span>: </label>
-                                                <input id="acnumber" class="form-control" type="text" name="acnumber" pattern="[0-9]{12}" title="adhar card number must be 12 digits" placeholder="Enter Aadhar Number" required/><span id="aadhaarmsg"></span>
+                                                <label for="acnumber"> Aadhar Card Number: </label>
+                                                   <input type="text" class="form-control" id="acnumber"/>
                                             </div>
 
                                             <br>
@@ -92,21 +97,15 @@
 
 
                                             <br><br>
-                                            <div class="form-group form-inline " style="padding-left:5%">
-                                                <label for="areaDet">Address <span style="color:red">*</span>:</label>
+                                            <div class="form-group form-inline " style="padding-left:8%">
+                                                <label for="areaDet">Address <span style="color:red">* </span>:</label>
                                                 <textarea id="areaDet" class="form-control" type="text" name="areaDet" placeholder="Enter Area Details" style="font-family:sans-serif"></textarea>
                                             </div>
 
                                             <br>
                                             <br>
 
-                                            <div class="form-group form-inline radio ">
-                                                <label class="radio-inline" for="bp">
-                                <input id="bp"  type="radio" name="ptype" value=""  required>Built Up Property</label>
-                                                <label class="radio-inline" for="lp">
-                                <input id="lp"  type="radio"  name="ptype" value=""  >Land Property</label>
-                                            </div>
-
+                                            
 
                                     </div>
 
@@ -122,7 +121,7 @@
 
                         </div>
                         <br>
-                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal1">
+                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal1" disabled>
 					<span  style="color: black; font-family: Times new Roman; font-size:xx-large;"> View Properties for Lease</span></button>
                         <br>
                         <div class="modal fade" id="myModal1" role="dialog">
@@ -146,7 +145,7 @@
                         </div>
 
 
-                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal2">
+                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal2" disabled>
 					<span style="color: black; font-family: Times new Roman; font-size:xx-large;">View Properties for Sale</span></button>
                         <br>
                         <div class="modal fade" id="myModal2" role="dialog">
@@ -169,7 +168,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal3">
+                        <button class="btn btn-link btn-lg" style="width: 25%; height: 10%; border: none; background: none; outline-style: none; position: relative" data-toggle="modal" data-target="#myModal3" disabled>
 					<span style="color: black; font-family: Times new Roman; font-size:xx-large;">View Registered Properties</span></button>
                         <br>
                         <div class="modal fade" id="myModal3" role="dialog">

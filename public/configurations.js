@@ -1,12 +1,20 @@
 let config = {};
 
 config.participants = {};
+config.adhar = {};
 
 config.participants[0]="POOJA";
 config.participants[1]="SUMANTH";
 config.participants[2]="SHRINIVAS";
 config.participants[3]="MONIKA";
 config.participants[4]="DEEPALI";
+
+
+config.adhar[0]="4786-2341-5687";
+config.adhar[1]="6987-6756-1254";
+config.adhar[2]="9867-5645-7865";
+config.adhar[3]="5687-6776-6756";
+config.adhar[4]="3454-4678-4577";
 
 var from1 ,to;
 function fun(){
@@ -15,6 +23,28 @@ document.getElementById("two").innerText=config.participants[1];
 document.getElementById("three").innerText=config.participants[2];
 document.getElementById("four").innerText=config.participants[3];
 document.getElementById("five").innerText=config.participants[4];
+}
+
+function adharNo(event){
+    
+if(event=="one"){
+
+document.getElementById("acnumber").value=config.adhar[0];
+
+}
+if(event=="two"){
+document.getElementById("acnumber").value=config.adhar[1];
+}
+if(event=="three"){
+document.getElementById("acnumber").value=config.adhar[2];
+}
+if(event=="four"){
+document.getElementById("acnumber").value=config.adhar[3];
+}
+if(event=="five"){
+document.getElementById("acnumber").value=config.adhar[4];
+}
+$("#acnumber").attr("readonly", true);
 }
 
 function fun1(event){
