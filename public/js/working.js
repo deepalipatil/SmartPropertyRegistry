@@ -236,9 +236,8 @@ $(document).ready(function() {
         
         var obj = {
             type: 'transfer',
-
-            name: senderName,
             survey_no: sn,
+            name: senderName,
             new_name: buyerName,
             v: 1
 
