@@ -189,7 +189,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	survey_no := args[2]
 	location := args[3]
 	area := args[4]
-	is_owner= "true"
+	
 	//if err != nil {
 	//	return nil, errors.New("3rd argument must be a numeric string")
 	//}
@@ -200,9 +200,6 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 		return nil, errors.New("Failed to get property")
 	}
 	
-    var p Property
-     prop_json := "{"+name+adhaar_no+survey_no+location+area+"}"
-     
 	res := Property{}
 	json.Unmarshal(propertyAsBytes, &res)
 	if res.Survey_no == survey_no{
@@ -212,9 +209,8 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	}
 	
 	//build the property json string manually
-	str := `{"name": "` + name + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `, "is_owner": "` + is_owner+ `"}`
-	
-    err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
+	str := `{"name": "` + name + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `"}`
+	err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err
 	}
