@@ -201,7 +201,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 		return nil, errors.New("Failed to get property")
 	}
 	
-    var p Property
+    
     
      
 	var res Property
@@ -213,13 +213,13 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	}
 	
 	//build the property json string manually
-	//str := "{"+" "+"}"//`{"name": "` + "hardcoded" + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `, "is_owner": "` + is_owner + `"}`
-	str := "{"+" "+"}"
+	str := `{"name": "` + "hardcode" + `", "adhaar_no": "` + adhaar_no + `", "survey_no": ` + survey_no + `, "location": "` + location +  `, "area": "` + area + `, "is_owner": "` + is_owner + `"}`
+	
     
-    //err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
-	//if err != nil {
-	//	return nil, err
-	//}
+    err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
+	if err != nil {
+		return nil, err
+	}
 		
 	//get the property index
 	propertyAsBytes, err = stub.GetState(propertyIndexStr)
@@ -233,7 +233,7 @@ func (t *SimpleChaincode) Register(stub shim.ChaincodeStubInterface, args []stri
 	propertyIndex = append(propertyIndex, name)									//add marble name to index list
 	fmt.Println("! property index: ", propertyIndex)
 	jsonAsBytes, _ := json.Marshal(propertyIndex)
-	//err = stub.PutState(propertyIndexStr, jsonAsBytes)						//store name of marble
+	err = stub.PutState(propertyIndexStr, jsonAsBytes)						//store name of marble
 
 	fmt.Println("- end register")
 	return nil, nil
