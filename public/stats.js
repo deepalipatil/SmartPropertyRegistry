@@ -50,6 +50,7 @@ $(document).ready(function(){
         
                 beforeSend: function(){
                     
+                    $("#all").css('display', 'none');
                     $("#ldr").css('display', 'block');
                     console.log('before send');
         
@@ -157,7 +158,7 @@ $(document).ready(function(){
                 $.ajax({
                     
                     
-                     beforeSend: function(){
+                   beforeSend: function(){
                     
                     $("#ldr").css('display', 'block');
                     console.log('before send');
@@ -359,7 +360,7 @@ function updatePage()
         error: function(e){
             console.log(e);
         },
-        async: false
+        async: true
     });
 
     chainHeight === blockNum; //Don't do this.
@@ -393,7 +394,7 @@ function updatePage()
             error: function(e){
                 console.log(e);
             },
-            async: false
+            async: true
         });
 
         blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
@@ -530,7 +531,7 @@ function getBlockData(number, el)
         error: function(e){
             console.log(e);
         },
-        async: false
+        async: true
     });
 
     $.ajax({
@@ -558,7 +559,7 @@ function getBlockData(number, el)
         error: function(e){
             console.log(e);
         },
-        async: false
+        async: true
     });
 
     if(number === 0)

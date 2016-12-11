@@ -55,6 +55,22 @@ console.log('Loaded');
                 
 				
                 $.ajax({
+                    
+            
+                    
+                    beforeSend: function(){
+                    $("#table-wrapper").css('display', 'none');
+                    $("#ldr").css('display', 'block');
+                    console.log('before send');
+        
+                    },
+                    complete: function(){
+                        //$("#ppp").append(temp);
+                        $("#ldr").css('display', 'none');
+                        $("#table-wrapper").css('display', 'block');
+        
+                    },
+                    
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
@@ -73,7 +89,7 @@ console.log('Loaded');
 						data=payload.split("\n");
                         
                         if(data[2].localeCompare("transfer")!=-1){
-                            temp="<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Survey No: "+data[4]+" <br>Transferred from: "+data[3]+" <br>Transferred to: "+data[5];
+                            temp="<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Survey No: "+data[3]+" <br>Transferred from: "+data[4]+" <br>Transferred to: "+data[5];
                         }
 						console.log('Hi'+data[6]+' '+data[3]);
 						if(data[6]!=undefined){
@@ -88,7 +104,7 @@ console.log('Loaded');
                     error: function(e){
                         console.log(e);
                     },
-                    async: false
+                    async: true
                 });
 
                 prevFiftyBlocks.push(blockTime);
@@ -165,7 +181,7 @@ function mySearch(keyword)
 			time=splitted[2];
 		
 
-			$("#d").append('<tr><td><strong>'+blockno+'</strong></td><td><strong>'+splitted[1]+'</strong></td><td><strong>'+time+'</strong></td></tr>');
+			$("#d").append('<tr><td><strong>'+blockno+'</strong></td><td style="text-align:left; padding-left:10%"><strong>'+splitted[1]+'</strong></td><td><strong>'+time+'</strong></td></tr>');
 		
 									
 		}

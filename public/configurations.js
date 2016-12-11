@@ -68,6 +68,7 @@ document.getElementById("four4").innerText=config.participants[3];
 document.getElementById("five5").innerText=config.participants[4];
 }
 if(event=="four"){
+    alert(event);
 document.getElementById("two2").innerText=config.participants[0];
 document.getElementById("three3").innerText=config.participants[1];
 document.getElementById("four4").innerText=config.participants[2];

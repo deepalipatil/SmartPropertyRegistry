@@ -21,7 +21,7 @@ module.exports.process_msg = function(ws, data) {
             console.log('its a transfer!');
             if (data.name && data.survey_no && data.new_name) {
                 console.log('invoking transfer!');
-                chaincode.invoke.transfer([data.survey_no, data.name, data.new_name]); //create a new property
+                chaincode.invoke.transfer([data.survey_no, data.name, data.new_name], cb_invoked); //create a new property
             }
         } else if (data.type == 'get') {
             console.log('get property msg');

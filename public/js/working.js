@@ -67,11 +67,12 @@ $(document).ready(function() {
         } else {
             alert("You haven't inserted all required data!");
         }
+        location.reload();
         return false;
     });
    
     $('#own').change(function (e) {
-        alert('hi');
+        //alert('hi');
        ownerName= this.options[ this.selectedIndex ].innerText;
     });
    
@@ -149,12 +150,22 @@ $(document).ready(function() {
                         var n2=name.toLowerCase().trim();
                         var n = n1.localeCompare(n2);
                         console.log(n1 +' data '+ n2 + ' compare '+ n);
-                            if(n==0){
-                                //var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
-                                console.log('in if  '+data[3]);
+                        
+                           
+/* 
+                            else */ if(n==0){
+                                /* alert(data[2]); */
+                                if(data[2].localeCompare("transfer")==0){
+                                       // alert("transfer");
+                                        $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[4]+'">'+data[3]+' '+data[4]+'</label></div>');
+                                }else{
+                                    console.log('in if  '+data[3]);
                                 //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')
                                 
-                                $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[4]+'</label></div>');
+                                $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[5]+'</label></div>');
+                                }
+                                //var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
+                                
                                 
                                
                                // $("#abc").load(data[4])
