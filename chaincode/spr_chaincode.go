@@ -22,7 +22,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"strconv"
 	"encoding/json"
 	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
@@ -40,7 +39,6 @@ type Property struct{
 	Survey_no string `json:"survey_no"`
 	Location string `json:"location"`
 	Area string `json:"area"`
-	Is_Owner bool `json:"is_owner"`
 }
 
 // ============================================================================================================================
