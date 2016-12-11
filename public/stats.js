@@ -19,6 +19,7 @@ let block1;
 let prev;
 let b;
 let blk;
+let transSpans;
 $(document).ready(function(){
 
     $('#goTo').bind('keyup', function(e) {
@@ -36,7 +37,7 @@ $(document).ready(function(){
         }
     });
 
-    $('.statsTbl').hide();
+   // $('.statsTbl').hide();
 
     let startFuncTime = Date.now() / 1000;
 
@@ -50,13 +51,15 @@ $(document).ready(function(){
         
                 beforeSend: function(){
                     
-                    $("#all").css('display', 'none');
                     $("#ldr").css('display', 'block');
                     console.log('before send');
         
                     },
                     complete: function(){
                         //$("#ppp").append(temp);
+						 $('#currBlock').html('#'+numberWithCommas(blockNum));
+
+						$('#blockScroll').css('width', ((chainHeight)*85)-10);
                         $("#ldr").css('display', 'none');
                     
         
@@ -82,9 +85,7 @@ $(document).ready(function(){
         async: false
     });
 
-    $('#currBlock').html('#'+numberWithCommas(blockNum));
-
-    $('#blockScroll').css('width', ((chainHeight)*85)-10);
+   
 
     $.ajax({
         
@@ -97,6 +98,10 @@ $(document).ready(function(){
                     },
                     complete: function(){
                         //$("#ppp").append(temp);
+						 transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
+						 blockTime = block1;
+	
+						prevFiftyBlocks.push(blockTime);
                         $("#ldr").css('display', 'none');
                     
         
@@ -122,10 +127,7 @@ $(document).ready(function(){
         async: false
     });
 
-    let transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
-	blockTime = block1;
-	
-    prevFiftyBlocks.push(blockTime); //Needs changing. Not past 50 blocks.
+	 //Needs changing. Not past 50 blocks.
 
     if(blockNum > 0) //If not the genesis block..
     {
@@ -148,7 +150,7 @@ $(document).ready(function(){
         $('#transLast').html(block.length);
 		}
         
-        for(let i = 1; i < 126; i++)
+        for(let i = 1; i <=blockNum; i++)
         {
 		
             if(blockNum - i > 0)
@@ -158,19 +160,31 @@ $(document).ready(function(){
                 $.ajax({
                     
                     
-                   beforeSend: function(){
+                     beforeSend: function(){
                     
                     $("#ldr").css('display', 'block');
-                    console.log('before send');
-        
+                    console.log('before send in loop');
+					
                     },
-                    complete: function(){
+					complete: function(){
                         //$("#ppp").append(temp);
                         $("#ldr").css('display', 'none');
-                    
-        
+						 if (blk) {
+						for(let j = 0; j < blk.length; j++)
+						{
+                        transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk[j].txid+'\') ">'+blk[j].txid+'</span>';
+						}
+
+                    $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+prev+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.length))+'"></input></div>');
+					prev=lastBlockHash;
+				}
+				 prevFiftyBlocks.push(blockTime);
+				if(typeof blk != 'undefined'){
+                transData.push(blk.length);
+				}
+				
+                transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
                 },
-                
                     type: 'GET',
                     dataType : 'json',
                     contentType: 'application/json',
@@ -186,25 +200,12 @@ $(document).ready(function(){
                     error: function(e){
                         console.log(e);
                     },
-                    async: true
+                    async: false
                 });
 
-                prevFiftyBlocks.push(blockTime);
-				if(typeof blk != 'undefined'){
-                transData.push(blk.length);
-				}
-				
-                transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
+               
 
-                if (blk) {
-                    for(let j = 0; j < blk.length; j++)
-                    {
-                        transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk[j].txid+'\') ">'+blk[j].txid+'</span>';
-                    }
-
-                    $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+prev+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.length))+'"></input></div>');
-					prev=lastBlockHash;
-				}
+               
 				
                 
 				
@@ -222,6 +223,7 @@ $(document).ready(function(){
         
                     },
                     complete: function(){
+					$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
                         //$("#ppp").append(temp);
                         $("#ldr").css('display', 'none');
                     
@@ -240,10 +242,10 @@ $(document).ready(function(){
                     error: function(e){
                         console.log(e);
                     },
-                    async: true
+                    async: false
                 });
 
-                $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blockTime)+'</span><br /><br /><span class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions">No transactions in the Genesis block.</span></div><input type="hidden" class="height" value="'+270+'"></input></div>');
+                
             }
             else
             {
@@ -264,10 +266,7 @@ $(document).ready(function(){
     }
 
     //If there are more than 125 blocks, HTML is created but data isn't filled. Used to reduce page load.
-    for(let i = blockNum - 126; i > -1; i--)
-    {
-        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked noData" onclick="changeShape(this)"><span>'+(i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData" style="text-align:center" ><span><img src="Images/loading.gif" style="margin-top:10px; padding:10px" height="50" width="50" /><br />Loading Block Data...</span></div><input type="hidden" class="height" value="110"></input></div>');
-    }
+    
 
     for(let i = 0; i < prevFiftyBlocks.length-1; i++)
     {
@@ -360,7 +359,7 @@ function updatePage()
         error: function(e){
             console.log(e);
         },
-        async: true
+        async: false
     });
 
     chainHeight === blockNum; //Don't do this.
@@ -394,7 +393,7 @@ function updatePage()
             error: function(e){
                 console.log(e);
             },
-            async: true
+            async: false
         });
 
         blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
@@ -531,7 +530,7 @@ function getBlockData(number, el)
         error: function(e){
             console.log(e);
         },
-        async: true
+        async: false
     });
 
     $.ajax({
@@ -559,7 +558,7 @@ function getBlockData(number, el)
         error: function(e){
             console.log(e);
         },
-        async: true
+        async: false
     });
 
     if(number === 0)
@@ -654,33 +653,7 @@ function changeShape(el){
 
 let searchShowing = false;
 
-function toggleSearch(el)
-{
-    if(!searchShowing){
-        $(el).siblings('#goTo').animate({
-            marginLeft: '-=545px'
-        }, 1000, function(){
-            $(el).siblings('#goTo').focus();
-        });
 
-        $(el).siblings('#srchLine').animate({
-            marginLeft: '-=136px'
-        }, 1000);
-    }
-    else
-    {
-        goToBlock();
-
-        $(el).siblings('#goTo').animate({
-            marginLeft: '+=545px'
-        }, 1000);
-
-        $(el).siblings('#srchLine').animate({
-            marginLeft: '+=136px'
-        }, 1000);
-    }
-    searchShowing = !searchShowing;
-}
 
 function goToBlock() //Search for block
 {
