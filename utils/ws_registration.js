@@ -16,6 +16,7 @@ module.exports.process_msg = function(ws, data) {
             console.log('its a create!');
             if (data.name && data.adhaar_no && data.survey_no && data.location && data.area) {
                 chaincode.invoke.register([data.name, data.adhaar_no, data.survey_no, data.location, data.area], cb_invoked); //create a new property
+                
             }
         } else if (data.type == 'transfer') {
             console.log('its a transfer!');

@@ -92,7 +92,7 @@ $(document).ready(function() {
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
+        url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain',
         success: function(d) {
 			console.log(d);
             chainHeight = d.height;
@@ -134,7 +134,7 @@ $(document).ready(function() {
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
 						
                         blk = d.transactions[0];
@@ -146,17 +146,19 @@ $(document).ready(function() {
 						payload=blk.payload;
 						payload=window.atob(payload);   
 						data=payload.split("\n");
+                        
+                        
                         var n1=data[3].toLowerCase().trim();
                         var n2=name.toLowerCase().trim();
                         var n = n1.localeCompare(n2);
+                        console.log(data[1]+"*"+data[2]+"*"+data[3]+"*"+data[4]);
                         console.log(n1 +' data '+ n2 + ' compare '+ n);
                         
                            
-/* 
-                            else */ if(n==0){
+                            if(n==0){
                                 /* alert(data[2]); */
                                 if(data[2].localeCompare("transfer")==0){
-                                       // alert("transfer");
+                                       alert("transfer");
                                         $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[4]+'">'+data[3]+' '+data[4]+'</label></div>');
                                 }else{
                                     console.log('in if  '+data[3]);
@@ -202,7 +204,7 @@ $(document).ready(function() {
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transcations;
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;

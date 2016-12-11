@@ -33,7 +33,7 @@ console.log('Loaded');
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain',
+        url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain',
         success: function(d) {
 			console.log(d);
             chainHeight = d.height;
@@ -75,7 +75,7 @@ console.log('Loaded');
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
 						
                         blk = d.transactions[0];
@@ -122,7 +122,7 @@ console.log('Loaded');
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://208091445d164b3aacc4d76ee95c747a-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://58a2b50594a34f2488b3e400ce64e8c3-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transcations;
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
