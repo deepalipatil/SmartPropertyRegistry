@@ -82,16 +82,17 @@ console.log('Loaded');
 						
 						if(typeof blk != 'undefined'){
 						console.log(d);
-						console.log('Sumanth'+blk);
+						//console.log('Sumanth'+blk);
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
 						payload=blk.payload;
 						payload=window.atob(payload);
 						data=payload.split("\n");
                         
                         if(data[2].localeCompare("transfer")!=-1){
-                            temp="<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Survey No: "+data[3]+" <br>Transferred from: "+data[4]+" <br>Transferred to: "+data[5];
+                            alert(data[2]+"**"+data[3]+"*"+data[4]+"*"+data[6]);
+                            temp="<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Survey No: "+data[3]+" <br>Transferred from: "+data[5]+" <br>Transferred to: "+data[6];
                         }
-						console.log('Hi'+data[6]+' '+data[3]);
+						//console.log('Hi'+data[6]+' '+data[3]);
 						if(data[6]!=undefined){
 						 temp= "<span style=\"text-align: left\">"+"Transaction "+data[2].toUpperCase()+" </br>Owner Name: "+data[3]+" <br>Adhar No: "+data[4]+" <br>Survey No: "+data[5]+" <br>Location: "+data[6]+"<br>Address: "+data[7]+"</span>";
 						

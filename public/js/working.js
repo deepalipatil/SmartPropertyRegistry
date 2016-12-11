@@ -147,19 +147,21 @@ $(document).ready(function() {
 						payload=window.atob(payload);   
 						data=payload.split("\n");
                         
-                        
+                       
                         var n1=data[3].toLowerCase().trim();
                         var n2=name.toLowerCase().trim();
-                        var n = n1.localeCompare(n2);
-                        console.log(data[1]+"*"+data[2]+"*"+data[3]+"*"+data[4]);
+                       
+                        console.log(data[5]+"**"+data[2]+"*"+data[3]+"*"+data[4]);
                         console.log(n1 +' data '+ n2 + ' compare '+ n);
-                        
-                           
+                             if(data[2].localeCompare("transfer")==0){
+                                  n1=data[5].toLowerCase().trim();
+                        }
+                          var n = n1.localeCompare(n2);  
                             if(n==0){
                                 /* alert(data[2]); */
                                 if(data[2].localeCompare("transfer")==0){
-                                       alert("transfer");
-                                        $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[4]+'">'+data[3]+' '+data[4]+'</label></div>');
+                                       
+                                        $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[3]+'">'+data[5]+' '+data[3]+'</label></div>');
                                 }else{
                                     console.log('in if  '+data[3]);
                                 //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')

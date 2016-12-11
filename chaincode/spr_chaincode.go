@@ -282,7 +282,7 @@ func (t *SimpleChaincode) transfer(stub shim.ChaincodeStubInterface, args []stri
 	res.Owner_Name = new_name														//change the user
 
 	//build the property json string manually
-	str := `{"name": "` + res.Owner_Name + `", "adhaar_no": "` + res.Aadhar_no + `", "survey_no": ` + res.Survey_no + `, "location": "` + res.Location +  `, "area": "` + res.Area + `"}`
+	str := `{"name": "` + new_name + `", "survey_no": ` + survey_no + `"}`
 	err = stub.PutState(survey_no, []byte(str))									//store marble with id as key
 	if err != nil {
 		return nil, err
