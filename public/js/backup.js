@@ -30,11 +30,6 @@ let ownerName;
 let senderName;
 let buyerName;
 
-
-let allBlock=[];
-let propBlocks=[];
-let abCounter=0;
-let pbCounter=0;
 // =================================================================================
 // On Load
 // =================================================================================
@@ -97,7 +92,7 @@ $(document).ready(function() {
         dataType : 'json',
         contentType: 'application/json',
         crossDomain:true,
-        url: 'https://36c9afcef54f4bb3be0c76904961fa87-vp0.us.blockchain.ibm.com:5002/chain',
+        url: 'https://8562d07637a84efea226d3eed622ad96-vp0.us.blockchain.ibm.com:5003/chain',
         success: function(d) {
 			console.log(d);
             chainHeight = d.height;
@@ -111,7 +106,7 @@ $(document).ready(function() {
         async: false
     });
 	
-        for(let i = 0; i < chainHeight; i++){
+	for(let i = 0; i < chainHeight; i++){
 		
             if(blockNum - i > 0)
             {
@@ -125,13 +120,11 @@ $(document).ready(function() {
                     console.log('before send');
         
                     },
-                   
                     complete: function(){
                         //$("#ppp").append(temp);
-                             
-                        
-                                    $("#ldr").css('display', 'none');
+                        $("#ldr").css('display', 'none');
                         $("#r1").css('display', 'block');
+        
                     },
                     
                     
@@ -141,22 +134,50 @@ $(document).ready(function() {
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://36c9afcef54f4bb3be0c76904961fa87-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://8562d07637a84efea226d3eed622ad96-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
 						
                         blk = d.transactions[0];
 						
 						if(typeof blk != 'undefined'){
-                            console.log(d);
-                            console.log('Sumanth'+blk);
-                            blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
-                            payload=blk.payload;
-                            payload=window.atob(payload);   
-                            data=payload;
-                            
-                            allBlock[abCounter++]=data;   
-                       
+						console.log(d);
+						console.log('Sumanth'+blk);
+						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
+						payload=blk.payload;
+						payload=window.atob(payload);   
+						data=payload.split("\n");
                         
+                       
+                        var n1=data[3].toLowerCase().trim();
+                        var n2=name.toLowerCase().trim();
+                       
+                        console.log(data[5]+"**"+data[2]+"*"+data[3]+"*"+data[4]);
+                        console.log(n1 +' data '+ n2 + ' compare '+ n);
+                             if(data[2].localeCompare("transfer")==0){
+                                  n1=data[5].toLowerCase().trim();
+                        }
+                          var n = n1.localeCompare(n2);  
+                            if(n==0){
+                                /* alert(data[2]); */
+                                if(data[2].localeCompare("transfer")==0){
+                                       
+                                        $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[3]+'">'+data[5]+' '+data[3]+'</label></div>');
+                                }else{
+                                    console.log('in if  '+data[3]);
+                                //$("#ppp").append('<label style="color:red"><input type="checkbox" >'++'</label><br>')
+                                
+                                $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data[5]+'">'+data[3]+' '+data[5]+'</label></div>');
+                                }
+                                //var temp=data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]+" "+data[7];
+                                
+                                
+                               
+                               // $("#abc").load(data[4])
+                                //$("ul").add('<li class="list-group-item" style="display:block"><label><input type="checkbox" value=""   >'+data[3]+'-'+data[4]+'</label></li>');
+                            }else{
+                                
+                                console.log('nt same ');
+                            }
                         }
                     },
                     error: function(e){
@@ -185,7 +206,7 @@ $(document).ready(function() {
                     dataType : 'json',
                     contentType: 'application/json',
                     crossDomain:true,
-                    url: 'https://36c9afcef54f4bb3be0c76904961fa87-vp0.us.blockchain.ibm.com:5002/chain/blocks/'+(blockNum-i),
+                    url: 'https://8562d07637a84efea226d3eed622ad96-vp0.us.blockchain.ibm.com:5003/chain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.transcations;
 						blockTime= d.nonHashData.localLedgerCommitTimestamp.seconds;
@@ -203,11 +224,10 @@ $(document).ready(function() {
                 break;
             }
         }
-        console.log('calling myFunction()');        
-        myFunction();
         
-   
-      
+        
+        
+        
     
 	});
     
@@ -269,98 +289,6 @@ $(document).ready(function() {
 });
 
 
-function myFunction() {
-     // alert("HEllo"+allBlock.length);
-     var noProp= true;
-   
-    var result=[];
-
-    var k=0;
-    for(var i=allBlock.length-1; i>=0;i--){
-        var flag=0;
-       var data1= allBlock[i].split("\n");
-       var curname, sn;
-       //console.log(data1[2]);
-       if(data1[2].localeCompare("transfer")==0){
-           console.log(data1[3]+' '+data1[5]);
-           
-           curname=data1[5];
-           sn=data1[4];
-           
-           //alert("transfer"+ data1[2]);
-         //  console.log(curname.toLowerCase().trim() +'--'+senderName.toLowerCase().trim());
-
-           if(((curname.toLowerCase().trim()).localeCompare(senderName.toLowerCase().trim())==0)){
-                    
-               for(var j=0; j<i; j++){
-                   //console.log((allBlock[j].toLowerCase()).includes(sn.toLowerCase()));
-                   if(allBlock[j].indexOf(sn)!=-1){
-                      // console.log("in indexOF");
-                        flag=1;
-                        break;
-                   }
-                   
-                   if((allBlock[j].toLowerCase()).includes(sn.toLowerCase())){
-                    //    alert("in transfer if");
-                        
-                        flag=1;
-                        break;
-                   }
-               }
-               if(flag==0){
-                  // alert(data1[4]+'   in trnfewer '+data1[5]+' '+data1[4]);
-                  noProp=false;
-                 $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data1[3]+'">'+data1[6]+' '+data1[4]+'</label></div>');  
-               }
-           }
-       }else if(data1[2].localeCompare("register")==0){
-           //console.log(" in register if"+data1[3]+' '+data1[5]+' '+senderName);     
-              // alert("regi");
-               curname=data1[3];
-               sn=data1[5];
-             /*   console.log(curname.localeCompare(senderName)==0);
-               console.log("flag value:======== "+flag);
-               console.log(curname.toLowerCase().trim() +'--'+senderName.toLowerCase().trim()); */
-               
-               if(((curname.toLowerCase().trim()).localeCompare(senderName.toLowerCase().trim())==0)){
-                //console.log("localeCompare executed successfully returned 0");
-               for(var j=0; j<i; j++){
-                  // console.log("allBlock[j]"+allBlock[j]);
-                   
-                   if(allBlock[j].indexOf(sn)!=-1){
-                       console.log("in indexOF");
-                        flag=1;
-                        break;
-                   }
-                   
-                   
-                   if(allBlock[j].includes(sn)){
-                        console.log("flag   changes to 1 ");
-                        flag=1;
-                        break;
-                   }
-               }
-               if(flag==0){
-                   //alert(data1[5]+'">'+data1[3]+' '+data1[5]);
-                   noProp=false;
-                 $("#ppp").append('<div class="radio"><label style="font-size:150%"><input name="propertyr" type="radio" value="'+data1[5]+'">'+data1[3]+' '+data1[5]+'</label></div>');
-               }
-           }
-           
-       }
-        
-    }
-    
-    
-   // alert("done");
-     
-                        //$("#ppp").append(temp);
-           
-        if(noProp){
-            alert("No Properties registered on this user");
-        }
-     
-}
 
 // =================================================================================
 // Socket Stuff
@@ -426,5 +354,3 @@ function connect_to_server() {
         }
     }
 }
-
-
